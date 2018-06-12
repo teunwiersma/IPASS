@@ -1,0 +1,16 @@
+h1{
+	color: white;
+	background-color: brown;
+	padding : 10px;
+	font-weight: bold;
+}
+body{
+	background-color: white;
+}
+
+#uitloggen{
+   position: fixed;
+   top:0;
+   right:0;
+   z-index:10;
+}

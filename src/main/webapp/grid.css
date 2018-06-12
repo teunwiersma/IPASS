@@ -1,0 +1,45 @@
+@media only screen and (min-width: 700px) {
+
+#frame {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr auto;
+}
+#header{
+	grid-column:1/3; grid-row: 1;
+}
+#menu{
+	grid-column:1/3; grid-row: 2;
+}
+
+#gerechttoevoegen{
+	grid-column:1/3; grid-row: 3;
+}
+
+#gerechtaanpassen{
+	grid-column:1/3; grid-row: 3;
+}
+
+#gerechtbekijken{
+	grid-column:1/3; grid-row: 3;
+}
+
+#gerechtdelen{
+	grid-column:1/3; grid-row: 3;
+}
+
+#ingredienttoevoegen{
+	grid-column:1/3; grid-row: 3;
+}
+
+#ingredientaanpassen{
+	grid-column:1/3; grid-row: 3;
+}
+
+#boodschappenlijstaanmaken{
+	grid-column:1/3; grid-row: 3;
+}
+
+#boodschappenlijstaanpassen{
+	grid-column:1/3; grid-row: 3;
+}
