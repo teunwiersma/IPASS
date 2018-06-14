@@ -1,21 +1,18 @@
 package nl.hu.ipass.webservices;
 
-import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Context;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.SecurityContext;
 
+import nl.hu.ipass.model.Gerecht;
 import nl.hu.ipass.model.Ingredient;
 import nl.hu.ipass.model.ServiceProvider;
 import nl.hu.ipass.model.SpetterendService;
 
-@Path("/ingredient")
-public class IngredientResource {
-
+@Path("/spetterendeten")
+public class SpetterendetenResource {
 	private SpetterendService service = ServiceProvider.getSpetterendService();
 
 	@POST
@@ -35,4 +32,5 @@ public class IngredientResource {
 		System.out.println(newIngredient);
 		return Response.ok(newIngredient).build();
 	}
+
 }
