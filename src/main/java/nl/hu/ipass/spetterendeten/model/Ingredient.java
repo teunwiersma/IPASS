@@ -13,7 +13,8 @@ public class Ingredient {
 	private int vet;
 	private int gebruikerid;
 
-	public Ingredient(String naam, int energie, int water, int eiwit, int koolhydraten, int suikers, int vet, int gebruikerid) {
+	public Ingredient(String naam, int energie, int water, int eiwit, int koolhydraten, int suikers, int vet,
+			int gebruikerid) {
 		this.naam = naam;
 		this.energie = energie;
 		this.water = water;

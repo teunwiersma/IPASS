@@ -28,17 +28,11 @@ public class SpetterendService {
 		return gerechtdaoimpl.findByNaam(naam);
 	}
 	
-	public Gerecht saveGerecht( int gerechtid, String naam, int ingredientid, int gebruikerid, String ingredient1,
-			String ingredient2, String ingredient3, String ingredient4, String ingredient5, String ingredient6,
-			String ingredient7, String ingredient8, String ingredient9, String ingredient10, String ingredient11,
-			String ingredient12, String ingredient13, String ingredient14, String ingredient15, String ingredient16) {
+	public Gerecht saveGerecht( int gerechtid, String naam, int ingredientid, int gebruikerid) {
 		for (Gerecht gerecht : getAllGerechten()) {
 			if(!(gerecht.getNaam() == (naam))) {
 				
-				Gerecht newgerecht = new Gerecht ( gerechtid,  naam,  ingredientid,  gebruikerid,  ingredient1,
-						 ingredient2,  ingredient3,  ingredient4,  ingredient5,  ingredient6,
-						 ingredient7,  ingredient8,  ingredient9,  ingredient10,  ingredient11,
-						 ingredient12,  ingredient13,  ingredient14,  ingredient15,  ingredient16 );
+				Gerecht newgerecht = new Gerecht ( gerechtid,  naam,  ingredientid,  gebruikerid);
 				gerechtdaoimpl.save(newgerecht);
 				return newgerecht;
 			}

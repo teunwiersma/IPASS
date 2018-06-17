@@ -43,15 +43,16 @@ public class IngredientPostgresDAOImpl extends PostgresBaseDAO implements Ingred
 	@Override
 	public boolean save(Ingredient Ingredient) {
 		try (Connection connection = super.getConnection()) {
-			String query = "insert into Ingredient(naam, energie,  water,  eiwit,  koolhydraten,  suikers,  vet) values(?, ?, ?, ?, ?, ?, ?)";
+			String query = "insert into Ingredient(naam, gebruikerid, energie,  water,  eiwit,  koolhydraten,  suikers,  vet) values(?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement stmt = connection.prepareStatement(query);
 			stmt.setString(1, Ingredient.getNaam());
-			stmt.setInt(2, Ingredient.getEnergie());
-			stmt.setInt(3, Ingredient.getWater());
-			stmt.setInt(4, Ingredient.getEiwit());
-			stmt.setInt(5, Ingredient.getKoolhydraten());
-			stmt.setInt(6, Ingredient.getSuikers());
-			stmt.setInt(7, Ingredient.getVet());
+			stmt.setInt(2, Ingredient.getGebruikerid());
+			stmt.setInt(3, Ingredient.getEnergie());
+			stmt.setInt(4, Ingredient.getWater());
+			stmt.setInt(5, Ingredient.getEiwit());
+			stmt.setInt(6, Ingredient.getKoolhydraten());
+			stmt.setInt(7, Ingredient.getSuikers());
+			stmt.setInt(8, Ingredient.getVet());
 
 			if(stmt.executeUpdate() ==1 ) {
 				stmt.close();

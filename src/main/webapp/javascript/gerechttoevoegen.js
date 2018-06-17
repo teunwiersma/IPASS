@@ -1,16 +1,18 @@
-function ingredienttoevoegen(){
+function toevoegenGerecht(){
+	  document.querySelector("#opslaan").addEventListener("click", function (){
 
-	  document.querySelector("#opslaaningredient").addEventListener("click", function (){
-		  console.log("heknek")
-	      var formData = new FormData(document.querySelector("#toevoegenform"));
-	      var encData = new URLSearchParams(formData.entries());
+      var formData = new FormData(document.querySelector("#toevoegform"));
+      var encData = new URLSearchParams(formData.entries());
 
-	      console.log("bbbbb")
-	      fetch("restservices/ingredienten/", {method: 'POST', body: encData})
-	      .then(response => response.json())
-	      .then(function(myJson){ console.log(myJson); });
-		})
+      var fetchoptions = {method: 'POST', body:encData};
+      
+      fetch("/spetterendeten", fetchoptions)
+      .then(response => response.json())
+      .then(function(myJson){ console.log(myJson); });
+            
+	})
 }
+
 
 function knopjes(){
 
@@ -44,4 +46,3 @@ function knopjes(){
 }
 
 knopjes();
-ingredienttoevoegen();
