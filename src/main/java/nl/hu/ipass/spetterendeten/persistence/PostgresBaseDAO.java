@@ -1,4 +1,4 @@
-package nl.hu.ipass.persistence;
+package nl.hu.ipass.spetterendeten.persistence;
 
 import java.sql.Connection;
 import javax.naming.InitialContext;

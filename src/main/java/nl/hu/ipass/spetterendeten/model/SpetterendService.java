@@ -1,11 +1,11 @@
-package nl.hu.ipass.model;
+package nl.hu.ipass.spetterendeten.model;
 
 import java.util.List;
 
-import nl.hu.ipass.persistence.GerechtDAO;
-import nl.hu.ipass.persistence.GerechtPostgresDAOImpl;
-import nl.hu.ipass.persistence.IngredientDAO;
-import nl.hu.ipass.persistence.IngredientPostgresDAOImpl;
+import nl.hu.ipass.spetterendeten.persistence.GerechtDAO;
+import nl.hu.ipass.spetterendeten.persistence.GerechtPostgresDAOImpl;
+import nl.hu.ipass.spetterendeten.persistence.IngredientDAO;
+import nl.hu.ipass.spetterendeten.persistence.IngredientPostgresDAOImpl;
 
 public class SpetterendService {
 
@@ -47,16 +47,13 @@ public class SpetterendService {
 	}
 	
 	
-	public Ingredient saveingredient( String naam, int energie, int water, int eiwit, int koolhydraten, int suikers, int vet, int gebruikerid) {
-		for (Ingredient ingredient : getAllIngredienten()) {
-			
+	public Ingredient saveingredient( String naam, int energie, int water, int eiwit, int koolhydraten, int suikers, int vet, int gebruikerid) {			
 				
 				Ingredient newingredient = new Ingredient( naam, energie, water, eiwit, koolhydraten, suikers, vet, gebruikerid);
 				ingredientdaoimpl.save(newingredient);
 				return newingredient;
 			
-		}
-		return null;
+		
 	}
 	
 }

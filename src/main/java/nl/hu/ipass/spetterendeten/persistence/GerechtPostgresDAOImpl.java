@@ -1,4 +1,4 @@
-package nl.hu.ipass.persistence;
+package nl.hu.ipass.spetterendeten.persistence;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import nl.hu.ipass.model.Gerecht;
+import nl.hu.ipass.spetterendeten.model.Gerecht;
 
 public class GerechtPostgresDAOImpl extends PostgresBaseDAO implements GerechtDAO {
 

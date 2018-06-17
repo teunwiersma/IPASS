@@ -1,4 +1,4 @@
-package nl.hu.ipass.model;
+package nl.hu.ipass.spetterendeten.model;
 
 public class Ingredient {
 

@@ -1,4 +1,4 @@
-package nl.hu.ipass.persistence;
+package nl.hu.ipass.spetterendeten.persistence;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,7 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import nl.hu.ipass.model.Ingredient;
+import nl.hu.ipass.spetterendeten.model.Ingredient;
 
 public class IngredientPostgresDAOImpl extends PostgresBaseDAO implements IngredientDAO {
 
@@ -53,11 +53,15 @@ public class IngredientPostgresDAOImpl extends PostgresBaseDAO implements Ingred
 			stmt.setInt(6, Ingredient.getSuikers());
 			stmt.setInt(7, Ingredient.getVet());
 
-			stmt.executeUpdate();
+			if(stmt.executeUpdate() ==1 ) {
+				stmt.close();
+				return true;
+			}
+			stmt.close();
 		} catch (Exception e) {
 			System.out.println(e);
 		}
-		return true;
+		return false;
 	}
 	
 	@Override

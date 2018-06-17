@@ -1,8 +1,8 @@
-package nl.hu.ipass.persistence;
+package nl.hu.ipass.spetterendeten.persistence;
 
 import java.util.List;
 
-import nl.hu.ipass.model.Gerecht;
+import nl.hu.ipass.spetterendeten.model.Gerecht;
 
 public interface GerechtDAO {
 
