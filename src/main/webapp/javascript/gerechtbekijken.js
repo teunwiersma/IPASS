@@ -26,6 +26,16 @@ function knopjes(){
 	document.querySelector("#boodschappenlijstaanpassen").addEventListener("click", function(){
 		window.location.assign("boodschappenlijstaanpassen.html");
 	});
+	
+	document.querySelector("#uitlogknopje").addEventListener("click", function(){
+		window.location.assign("index.html");
+	});
+	 
+    if(window.sessionStorage.getItem('username') == null){
+        document.querySelector("#naamingelogd").innerHTML = "Ingelogd als";
+    }else{
+        document.querySelector("#naamingelogd").innerHTML = "Ingelogd als " + window.sessionStorage.getItem('username');
+    }
 
 }
 

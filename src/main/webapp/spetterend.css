@@ -8,10 +8,15 @@ body{
 	background-color: white;
 }
 
-#uitloggen{
-   position: fixed;
-   top:0;
-   right:0;
-   z-index:10;
+#naamingelogd{
+	position: absolute;
+	top: -10px;
+	right: 100px;
+}
+
+#uitlogknopje{
+   position: absolute;
+   top: 4px ;
+   right: 8px;
 }
 

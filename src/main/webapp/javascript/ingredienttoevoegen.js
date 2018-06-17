@@ -1,13 +1,11 @@
 function ingredienttoevoegen(){
 
 	  document.querySelector("#opslaaningredient").addEventListener("click", function (){
-		  console.log("heknek")
 	      var formData = new FormData(document.querySelector("#toevoegenform"));
 	      var encData = new URLSearchParams(formData.entries());
 
-	      console.log("bbbbb")
 	      fetch("restservices/ingredienten/", {method: 'POST', body: encData})
-	      .then(response => response.json())
+	      .then(response => response.json(), alert("Ingredient toegevoegd!"))
 	      .then(function(myJson){ console.log(myJson); });
 		})
 }
@@ -40,6 +38,15 @@ function knopjes(){
 	document.querySelector("#boodschappenlijstaanpassen").addEventListener("click", function(){
 		window.location.assign("boodschappenlijstaanpassen.html");
 	});
+	document.querySelector("#uitlogknopje").addEventListener("click", function(){
+		window.location.assign("index.html");
+	});
+	 
+    if(window.sessionStorage.getItem('username') == null){
+        document.querySelector("#naamingelogd").innerHTML = "Ingelogd als";
+    }else{
+        document.querySelector("#naamingelogd").innerHTML = "Ingelogd als " + window.sessionStorage.getItem('username');
+    }
 
 }
 
