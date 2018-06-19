@@ -11,13 +11,16 @@ import java.util.List;
 import nl.hu.ipass.spetterendeten.model.Ingredient;
 
 public class IngredientPostgresDAOImpl extends PostgresBaseDAO implements IngredientDAO {
-
+	
+	private UserDao userdaoimpl = new UserPostgresDaoImpl();
+	
 	private List<Ingredient> selectIngredient (String query){
 		List<Ingredient> results = new ArrayList<Ingredient>();
 		try (Connection con = super.getConnection()){
 			PreparedStatement pstmt = con.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
+				int ingredientid = rs.getInt("ingredientid");
 				String naam = rs.getString("naam");
 				int energie = rs.getInt("energie");
 				int water = rs.getInt("water");
@@ -26,7 +29,7 @@ public class IngredientPostgresDAOImpl extends PostgresBaseDAO implements Ingred
 				int suikers = rs.getInt("suikers");
 				int vet = rs.getInt("vet");
 				int gebruikerid = rs.getInt("gebruikerid");
-				Ingredient newIngredient = new Ingredient( naam, energie,  water,  eiwit,  koolhydraten,  suikers,  vet,  gebruikerid);
+				Ingredient newIngredient = new Ingredient( ingredientid, naam, energie,  water,  eiwit,  koolhydraten,  suikers,  vet,  gebruikerid);
 				results.add(newIngredient);
 			}
 		}catch (SQLException sqle) {
@@ -37,7 +40,10 @@ public class IngredientPostgresDAOImpl extends PostgresBaseDAO implements Ingred
 	
 	@Override
 	public List<Ingredient> findAll(){
-		return selectIngredient("SELECT * FROM Ingredient ORDER BY IngredientID DESC;");
+		//System.out.println(userdaoimpl.findGebruikerIDForUser("henk", "1234"));
+		String gebruikerid = userdaoimpl.getGebruikerid() ; 
+		//if(gebruikerid)
+		return selectIngredient("SELECT * FROM Ingredient where gebruikerid = " +  gebruikerid  + " ORDER BY IngredientID DESC;");
 	}
 	
 	@Override
@@ -74,7 +80,7 @@ public class IngredientPostgresDAOImpl extends PostgresBaseDAO implements Ingred
 			ResultSet rs = stmt.executeQuery("select * from Ingredient where ingredientid = '"+ ingredientid + "';");
 
 			while (rs.next()) {
-				Ingredient = new Ingredient(rs.getString("naam"), rs.getInt("energie"), rs.getInt("water"), rs.getInt("eiwit"), rs.getInt("koolhydraten"), rs.getInt("suikers"), rs.getInt("vet"), rs.getInt("gebruikerid"));
+				Ingredient = new Ingredient(rs.getInt("ingredientid" ), rs.getString("naam"), rs.getInt("energie"), rs.getInt("water"), rs.getInt("eiwit"), rs.getInt("koolhydraten"), rs.getInt("suikers"), rs.getInt("vet"), rs.getInt("gebruikerid"));
 			}
 			rs.close();
 			stmt.close();

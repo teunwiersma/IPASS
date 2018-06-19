@@ -26,4 +26,19 @@ function login(event){
 	    });
 }
 
+function logGebruikerid(){
+    document.querySelector("#login").addEventListener("click", function(){
+        var username = document.querySelector("#username").value;
+    	if(username == "teun"){
+    		window.localStorage.setItem('gebruikerid', "1");
+    	}
+    	else{
+    		window.localStorage.setItem('gebruikerid', "2");
+    	}
+    		
+    	
+    })
+}
+
+logGebruikerid();
 login();

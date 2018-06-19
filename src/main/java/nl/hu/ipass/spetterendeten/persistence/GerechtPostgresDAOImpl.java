@@ -20,10 +20,9 @@ public class GerechtPostgresDAOImpl extends PostgresBaseDAO implements GerechtDA
 			while(rs.next()) {
 				int gerechtid = rs.getInt("gerechtid");
 				String naam = rs.getString("naam");
-				int ingredientid = rs.getInt("ingredientid");
 				int gebruikerid = rs.getInt("gebruikerid");
 
-				Gerecht newGerecht = new Gerecht( gerechtid,  naam,  ingredientid,  gebruikerid);
+				Gerecht newGerecht = new Gerecht( gerechtid,  naam,  gebruikerid);
 				results.add(newGerecht);
 			}
 		}catch (SQLException sqle) {
@@ -34,17 +33,16 @@ public class GerechtPostgresDAOImpl extends PostgresBaseDAO implements GerechtDA
 	
 	@Override
 	public List<Gerecht> findAll(){
-		return selectGerecht("SELECT GERECHTID, NAAM, INGREDIENTID, INGREDIENTEN, GEBRUIKERID FROM GERECHT ORDER BY GERECHTID DESC;");
+		return selectGerecht("SELECT * FROM GERECHT ORDER BY GERECHTID DESC;");
 	}
 	
 	@Override
 	public boolean save(Gerecht gerecht) {
 		try (Connection connection = super.getConnection()) {
-			String query = "insert into gerecht(naam, ingredientid, gebruikerid) values (?, ?, ?)";
+			String query = "insert into gerecht(naam, gebruikerid) values (?, ?)";
 			PreparedStatement stmt = connection.prepareStatement(query);
 			stmt.setString(1, gerecht.getNaam());
-			stmt.setInt(2, gerecht.getIngredientid());
-			stmt.setInt(3, gerecht.getGebruikerid());
+			stmt.setInt(2, gerecht.getGebruikerid());
 			stmt.executeUpdate();
 		} catch (Exception e) {
 			System.out.println(e);
@@ -61,7 +59,7 @@ public class GerechtPostgresDAOImpl extends PostgresBaseDAO implements GerechtDA
 			ResultSet resultset = stmt.executeQuery("select * from gerecht where naam = '"+ naam + "';");
 
 			while (resultset.next()) {
-				gerecht = new Gerecht(resultset.getInt("gerechtid"), resultset.getString("naam"), resultset.getInt("ingredientid"), resultset.getInt("gebruikerid"));
+				gerecht = new Gerecht(resultset.getInt("gerechtid"), resultset.getString("naam"), resultset.getInt("gebruikerid"));
 			}
 			resultset.close();
 			stmt.close();

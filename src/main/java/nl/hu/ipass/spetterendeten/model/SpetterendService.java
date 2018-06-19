@@ -31,11 +31,11 @@ public class SpetterendService {
 		return gerechtdaoimpl.findByNaam(naam);
 	}
 	
-	public Gerecht saveGerecht( int gerechtid, String naam, int ingredientid, int gebruikerid) {
+	public Gerecht saveGerecht( int gerechtid, String naam, int gebruikerid) {
 		for (Gerecht gerecht : getAllGerechten()) {
 			if(!(gerecht.getNaam() == (naam))) {
 				
-				Gerecht newgerecht = new Gerecht ( gerechtid,  naam,  ingredientid,  gebruikerid);
+				Gerecht newgerecht = new Gerecht ( gerechtid,  naam,  gebruikerid);
 				gerechtdaoimpl.save(newgerecht);
 				return newgerecht;
 			}
@@ -52,6 +52,8 @@ public class SpetterendService {
 			
 		
 	}
+	
+	
 	
 	
 }

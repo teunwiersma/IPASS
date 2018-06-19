@@ -18,33 +18,43 @@
 			<input type="button" id="gerechttoevoegen" value="Gerecht toevoegen" />
 			<input type="button" id="gerechtaanpassen" value="Gerecht aanpassen" />
 			<input type="button" id="gerechtbekijken" value="Gerecht bekijken" />
-			<input type="button" id="gerechtdelen" value="Gerecht delen" />
+			<input type="button" id="gerechtdelen" value="Gerecht delen" /> 
 			<input type="button" id="ingredienttoevoegen" value="Ingrediënt toevoegen" />
-			<input type="button" id="ingredientaanpassen" value="Ingrediënt aanpassen" />
+			<input type="button" id="ingredientaanpassen"value="Ingrediënt aanpassen" /> 
 			<input type="button" id="boodschappenlijstaanmaken" value="boodschappenlijst aanmaken" />
 			<input type="button" id="boodschappenlijstaanpassen" value="boodschappenlijst aanpassen" />
-
-		</div>
-		<div id="gerechttoevoegen">
 			<h1>Gerecht Toevoegen:</h1>
-			<p>Voer de ingredienten van het gerecht in:</p>
+			<p>Voeg de gegevens van het gerecht in:</p>
 		</div>
+			
 		<form id="toevoegenform">
-		<div id="invoerform1">
-		Naam: <input id="naam" type="text" name="naam"/> <br> <br>
-		INGREDIENTID <input id="INGREDIENTID" type="text" name="ingredientid"/> <br> <br>
-		GERECHTID <input id="GERECHTID" type="text" name="gerechtid"/> <br> <br>		
-		GEBRUIKERID <input id="GEBRUIKERID" type="text" name="gebruikerid"/> <br> <br>		
-		</div>
-		
-		<button type="button" id="opslaan">Opslaan</button>
+			<table id="ingredientenlijst">
+				<tr>
+					<th>ingredient naam</th>
+					<th>energie</th>
+					<th>water</th>
+					<th>eiwit</th>
+					<th>koolhydraten</th>
+					<th>suikers</th>
+					<th>vet</th>
+				</tr>
+			</table>
 		</form>
-				
-	
+		<form id="nieuwgerecht">
+		Naam gerecht: <input id="naam" type="text" name="naam" /> <br> <br>
+		<table id="gerechtlijst">
+			<tr>
+				<th>ingredienten</th>
+			</tr>
+		</table>
+		<button type="button" id="opslaan">Opslaan</button>
+			
+		</form>
+
 	</div>
-	
+
 	<div id="uitloggen">
-		<p id="naamingelogd">aaa</p> 
+		<p id="naamingelogd">aaa</p>
 		<input id="uitlogknopje" type="button" value="uitloggen">
 	</div>
 	<script src="javascript/gerechttoevoegen.js"></script>

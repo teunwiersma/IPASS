@@ -4,9 +4,9 @@ public class User {
 	
 	private String wachtwoord;
 	private String gebruikersnaam;
-	private int gebruikerid;
+	private String gebruikerid;
 	
-	public User(String wachtwoord , String gebruikersnaam , int gebruikerid ) {
+	public User(String wachtwoord , String gebruikersnaam , String gebruikerid ) {
 		this.wachtwoord = wachtwoord;
 		this.gebruikersnaam = gebruikersnaam;
 		this.gebruikerid = gebruikerid;
@@ -28,11 +28,11 @@ public class User {
 		this.gebruikersnaam = gebruikersnaam;
 	}
 
-	public int getGebruikerid() {
+	public String getGebruikerid() {
 		return gebruikerid;
 	}
 
-	public void setGebruikerid(int gebruikerid) {
+	public void setGebruikerid(String gebruikerid) {
 		this.gebruikerid = gebruikerid;
 	}
 	

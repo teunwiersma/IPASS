@@ -39,4 +39,34 @@ function knopjes(){
 
 }
 
+function laadgerechten(){
+	fetch("restservices/gerechten/")
+	.then(response => response.json())
+	.then(function(gerechten){
+		for(const gerecht of gerechten){
+			var row = document.createElement("tr");
+			
+			row.setAttribute('id', gerecht.gerechtid);
+			
+			var naamColumn = document.createElement("td");
+		    var naamText = document.createTextNode(gerecht.naam);
+		    naamColumn.appendChild(naamText);
+		    row.appendChild(naamColumn);
+		    
+		    var gerechtidColumn = document.createElement("td");
+		    var gerechtidText = document.createTextNode(gerecht.gerechtid);
+		    gerechtidColumn.appendChild(gerechtidText);
+		    row.appendChild(gerechtidColumn);
+		    
+		    var gebruikeridColumn = document.createElement("td");
+		    var gebruikeridText = document.createTextNode(gerecht.gebruikerid);
+		    gebruikeridColumn.appendChild(gebruikeridText);
+		    row.appendChild(gebruikeridColumn);
+		    
+		    
+		    document.querySelector("#gerechtenlijst").appendChild(row);
+		}
+	})
+}
+laadgerechten()
 knopjes();

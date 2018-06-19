@@ -1,3 +1,9 @@
+function initpage(){
+		document.querySelector("#GEBRUIKERID").setAttribute("value", window.localStorage.getItem('gebruikerid'));
+
+}
+
+
 function ingredienttoevoegen(){
 
 	  document.querySelector("#opslaaningredient").addEventListener("click", function (){
@@ -52,3 +58,4 @@ function knopjes(){
 
 knopjes();
 ingredienttoevoegen();
+initpage();

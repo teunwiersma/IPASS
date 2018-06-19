@@ -37,5 +37,58 @@ function knopjes(){
         document.querySelector("#naamingelogd").innerHTML = "Ingelogd als " + window.sessionStorage.getItem('username');
     }
 }
-
+function laadgerechten(){
+	fetch("restservices/gerechten/")
+	.then(response => response.json())
+	.then(function(gerechten){
+		for(const gerecht of gerechten){
+			var row = document.createElement("tr");
+			
+			row.setAttribute('id', gerecht.gerechtid);
+			
+			var naamColumn = document.createElement("td");
+		    var naamText = document.createTextNode(gerecht.naam);
+		    naamColumn.appendChild(naamText);
+		    row.appendChild(naamColumn);
+		    
+		    var gerechtidColumn = document.createElement("td");
+		    var gerechtidText = document.createTextNode(gerecht.gerechtid);
+		    gerechtidColumn.appendChild(gerechtidText);
+		    row.appendChild(gerechtidColumn);
+		    
+		    var gebruikeridColumn = document.createElement("td");
+		    var gebruikeridText = document.createTextNode(gerecht.gebruikerid);
+		    gebruikeridColumn.appendChild(gebruikeridText);
+		    row.appendChild(gebruikeridColumn);
+		    
+		    
+		    var toevoegcolumn = document.createElement("td");
+		    var toevoeg = document.createElement("button");
+		    toevoeg.innerHTML = '+';
+		    toevoeg.setAttribute =('id', gerecht.gerechtid);
+		    toevoegcolumn.appendChild(toevoeg);
+		    row.appendChild(toevoegcolumn);
+		    
+		    document.querySelector("#gerechtenlijst").appendChild(row);
+		    
+		    toevoeg.addEventListener("click", function(){
+				event.preventDefault();
+					var rows = document.createElement("tr");
+					
+					var ingredientje = document.createElement("td");
+					var ingredientjes = document.createTextNode(ingredient.Ingredient);
+					ingredientje.appendChild(ingredientjes);
+					rows.appendChild(ingredientje);
+					
+					var idcolumn = document.createElement("td");
+					var idText = document.createTextNode(ingredient.ingredientid);
+					idcolumn.appendChild(idText);
+					rows.appendChild(idcolumn);
+					
+					document.querySelector("#gerechtlijst").appendChild(rows);
+		    })
+		}
+	})
+}
+laadgerechten()
 knopjes();

@@ -6,6 +6,7 @@ import java.util.AbstractMap.SimpleEntry;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -16,12 +17,16 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.impl.crypto.MacProvider;
+import nl.hu.ipass.spetterendeten.model.ServiceProvider;
+import nl.hu.ipass.spetterendeten.model.SpetterendService;
 import nl.hu.ipass.spetterendeten.model.User;
 import nl.hu.ipass.spetterendeten.persistence.UserDao;
 import nl.hu.ipass.spetterendeten.persistence.UserPostgresDaoImpl;
 
 @Path("/authentication")
 public class AuthenticationResource {
+
+	private SpetterendService service = ServiceProvider.getSpetterendService();
 
 	final static public Key key = MacProvider.generateKey();
 	
@@ -56,5 +61,6 @@ public class AuthenticationResource {
 		}catch(JwtException | IllegalArgumentException e)
 			{return Response.status(Response.Status.UNAUTHORIZED).build();}
 	}
-
+	
+	
 }

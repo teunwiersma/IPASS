@@ -13,8 +13,20 @@ public class Ingredient {
 	private int vet;
 	private int gebruikerid;
 
-	public Ingredient(String naam, int energie, int water, int eiwit, int koolhydraten, int suikers, int vet,
-			int gebruikerid) {
+	public Ingredient(int ingredientid, String naam, int energie, int water, int eiwit, int koolhydraten, int suikers, int vet,	int gebruikerid) {
+		this.ingredientid = ingredientid;
+		this.naam = naam;
+		this.energie = energie;
+		this.water = water;
+		this.eiwit = eiwit;
+		this.koolhydraten = koolhydraten;
+		this.suikers = suikers;
+		this.vet = vet;
+		this.gebruikerid = gebruikerid;
+	}
+
+	public Ingredient( String naam, int energie, int water, int eiwit, int koolhydraten, int suikers,int vet, int gebruikerid) {
+		super();
 		this.naam = naam;
 		this.energie = energie;
 		this.water = water;

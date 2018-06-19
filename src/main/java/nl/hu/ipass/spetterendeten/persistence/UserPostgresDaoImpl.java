@@ -7,8 +7,8 @@ import java.sql.Statement;
 
 public class UserPostgresDaoImpl extends PostgresBaseDAO implements UserDao {
 
+	public String gebruikerid = null;
 	public String findGebruikerIDForUser(String name, String pass) {
-		String gebruikerid = null;
 
 		try (Connection connection = super.getConnection()) {
 			Statement stmt = connection.createStatement();
@@ -25,4 +25,10 @@ public class UserPostgresDaoImpl extends PostgresBaseDAO implements UserDao {
 		}
 		return gebruikerid;
 	}
+	
+	public String getGebruikerid() {
+		return "2";
+	}
+	
+	
 }

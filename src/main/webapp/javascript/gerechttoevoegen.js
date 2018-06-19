@@ -1,12 +1,20 @@
+function initpage(){
+
+	laadingredienten();
+
+	knopjes();
+	
+}
+
 function toevoegenGerecht(){
 	  document.querySelector("#opslaan").addEventListener("click", function (){
 
-      var formData = new FormData(document.querySelector("#toevoegform"));
+      var formData = new FormData(document.querySelector("#nieuwgerecht"));
       var encData = new URLSearchParams(formData.entries());
 
       var fetchoptions = {method: 'POST', body:encData};
       
-      fetch("/spetterendeten", fetchoptions)
+      fetch("restservices/gerecht", fetchoptions)
       .then(response => response.json())
       .then(function(myJson){ console.log(myJson); });
             
@@ -55,4 +63,81 @@ function knopjes(){
 
 }
 
-knopjes();
+function laadingredienten(){
+	fetch("restservices/ingredienten/")
+	.then(response => response.json())
+	.then(function(ingredienten){
+		
+		for(const ingredient of ingredienten){
+			var row = document.createElement("tr");
+			row.className = "naam";
+			
+			row.setAttribute("id", ingredient.ingredientid);
+			
+			var naamColumn = document.createElement("td");
+		    var naamText = document.createTextNode(ingredient.Ingredient);
+		    naamColumn.appendChild(naamText);
+		    row.appendChild(naamColumn);
+		    
+			var energieColumn = document.createElement("td");
+		    var energieText = document.createTextNode(ingredient.energie);
+		    energieColumn.appendChild(energieText);
+		    row.appendChild(energieColumn);	
+		    
+			var waterColumn = document.createElement("td");
+		    var waterText = document.createTextNode(ingredient.water);
+		    waterColumn.appendChild(waterText);
+		    row.appendChild(waterColumn);
+		    
+			var eiwitColumn = document.createElement("td");
+		    var eiwitText = document.createTextNode(ingredient.eiwit);
+		    eiwitColumn.appendChild(eiwitText);
+		    row.appendChild(eiwitColumn);
+		    
+			var koolhydratenColumn = document.createElement("td");
+		    var koolhydratenText = document.createTextNode(ingredient.koolhydraten);
+		    koolhydratenColumn.appendChild(koolhydratenText);
+		    row.appendChild(koolhydratenColumn);
+		    
+			var suikersColumn = document.createElement("td");
+		    var suikersText = document.createTextNode(ingredient.suikers);
+		    suikersColumn.appendChild(suikersText);
+		    row.appendChild(suikersColumn);
+		    
+			var vetColumn = document.createElement("td");
+		    var vetText = document.createTextNode(ingredient.vet);
+		    vetColumn.appendChild(vetText);
+		    row.appendChild(vetColumn);
+		    
+		    var toevoegcolumn = document.createElement("td");
+		    var toevoeg = document.createElement("button");
+		    toevoeg.innerHTML = '+';
+		    toevoeg.setAttribute =('id', ingredient.ingredientid);
+		    toevoegcolumn.appendChild(toevoeg);
+		    row.appendChild(toevoegcolumn);
+		   
+		    
+			document.querySelector("#ingredientenlijst").appendChild(row);
+		    
+			toevoeg.addEventListener("click", function(){
+				event.preventDefault();
+					var rows = document.createElement("tr");
+					
+					var ingredientje = document.createElement("td");
+					var ingredientjes = document.createTextNode(ingredient.Ingredient);
+					ingredientje.appendChild(ingredientjes);
+					rows.appendChild(ingredientje);
+					
+					var idcolumn = document.createElement("td");
+					var idText = document.createTextNode(ingredient.ingredientid);
+					idcolumn.appendChild(idText);
+					rows.appendChild(idcolumn);
+					
+					document.querySelector("#gerechtlijst").appendChild(rows);
+			})
+		}
+	})
+}
+
+
+initpage();

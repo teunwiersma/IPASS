@@ -3,7 +3,12 @@ package nl.hu.ipass.spetterendeten.webservices;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.json.Json;
+import javax.json.JsonArray;
+import javax.json.JsonArrayBuilder;
+import javax.json.JsonObjectBuilder;
 import javax.ws.rs.FormParam;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -29,7 +34,6 @@ public class SpetterendetenResource {
 							   @FormParam("koolhydraten")int koolhydraten,
 							   @FormParam("suikers")int suikers,
 		   					   @FormParam("vet")int vet){
-		System.out.println("aaaaa");
 		Ingredient newIngredient = service.saveingredient( naam, energie, water, eiwit, koolhydraten, suikers, vet, gebruikerid);
 		System.out.println(newIngredient);
 		if(newIngredient == null) {
@@ -40,4 +44,28 @@ public class SpetterendetenResource {
 		return Response.ok(newIngredient).build();
 	}
 
+	@GET
+	@Produces("application/json")
+	public String getIngredienten() {
+		
+		JsonArrayBuilder jab = Json.createArrayBuilder();
+		
+		for (Ingredient i : service.getAllIngredienten()) {
+			JsonObjectBuilder job = Json.createObjectBuilder();
+			job.add("ingredientid", i.getIngredientid());
+			job.add("Ingredient", i.getNaam());
+			job.add("energie", i.getEnergie());
+			job.add("water", i.getWater());
+			job.add("eiwit", i.getEiwit());
+			job.add("koolhydraten", i.getKoolhydraten());
+			job.add("suikers", i.getSuikers());
+			job.add("vet", i.getVet());
+			job.add("gebruikersid", i.getGebruikerid());
+			
+			jab.add(job);
+
+		}
+		JsonArray array = jab.build();
+		return array.toString();
+	}
 }

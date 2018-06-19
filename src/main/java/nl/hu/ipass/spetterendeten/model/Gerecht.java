@@ -5,15 +5,13 @@ public class Gerecht {
 
 	private int gerechtid;
 	private String naam;
-	private int ingredientid;
 	private int gebruikerid;
 	
 	
 	
-	public Gerecht(int gerechtid, String naam, int ingredientid, int gebruikerid) {
+	public Gerecht(int gerechtid, String naam, int gebruikerid) {
 		this.gerechtid = gerechtid;
 		this.naam = naam;
-		this.ingredientid = ingredientid;
 		this.gebruikerid = gebruikerid;
 	}
 
@@ -36,17 +34,6 @@ public class Gerecht {
 	public void setNaam(String naam) {
 		this.naam = naam;
 	}
-
-
-	public int getIngredientid() {
-		return ingredientid;
-	}
-
-
-	public void setIngredientid(int ingredientid) {
-		this.ingredientid = ingredientid;
-	}
-
 
 	public int getGebruikerid() {
 		return gebruikerid;
