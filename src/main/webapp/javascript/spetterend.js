@@ -20,25 +20,32 @@ function login(event){
 	                alert("Wrong username/password");
 	                throw "Wrong username/password";
 	    }})
-
+	    		.then(function(myToken){
+	    			token = myToken.JWT;
+	    			var base64Url = token.split('.')[1];
+	    			var base64 = base64Url.replace('-', '+').replace('_', '/');
+	    			var tokenS = JSON.parse(window.atob(base64));
+	    			window.localStorage.setItem("gebruikerid", tokenS);
+	    			
+	    		})
 	            .then(myToken => window.sessionStorage.setItem("sessionToken", myToken.JWT))
 	            .catch(error => console.log(error));
 	    });
 }
 
-function logGebruikerid(){
-    document.querySelector("#login").addEventListener("click", function(){
-        var username = document.querySelector("#username").value;
-    	if(username == "teun"){
-    		window.localStorage.setItem('gebruikerid', "1");
-    	}
-    	else{
-    		window.localStorage.setItem('gebruikerid', "2");
-    	}
-    		
-    	
-    })
-}
+//function logGebruikerid(){
+//    document.querySelector("#login").addEventListener("click", function(){
+//        var username = document.querySelector("#username").value;
+//    	if(username == "teun"){
+//    		window.localStorage.setItem('gebruikerid', "1");
+//    	}
+//    	else{
+//    		window.localStorage.setItem('gebruikerid', "2");
+//    	}
+//    		
+//    	
+//    })
+//}
 
-logGebruikerid();
+//logGebruikerid();
 login();

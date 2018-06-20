@@ -4,6 +4,8 @@ import java.security.Key;
 import java.util.Calendar;
 import java.util.AbstractMap.SimpleEntry;
 
+import javax.json.Json;
+import javax.json.JsonArrayBuilder;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -49,11 +51,11 @@ public class AuthenticationResource {
 									  @FormParam("password")String password) {
 		try {
 			UserDao dao = new UserPostgresDaoImpl();
-			String role = dao.findGebruikerIDForUser(username, password);
+			String gebruikerid = dao.findGebruikerIDForUser(username, password);
 			
-			if(role == null) { throw new IllegalArgumentException("No user found");}
+			if(gebruikerid == null) { throw new IllegalArgumentException("No user found");}
 			
-			String token = createToken(username, role);
+			String token = createToken(username, gebruikerid);
 			
 			SimpleEntry<String, String> JWT = new SimpleEntry<String, String>("JWT", token);
 			return Response.ok(JWT).build();
@@ -61,6 +63,7 @@ public class AuthenticationResource {
 		}catch(JwtException | IllegalArgumentException e)
 			{return Response.status(Response.Status.UNAUTHORIZED).build();}
 	}
+	
 	
 	
 }

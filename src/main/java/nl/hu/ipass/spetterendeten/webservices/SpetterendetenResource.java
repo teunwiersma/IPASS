@@ -68,4 +68,5 @@ public class SpetterendetenResource {
 		JsonArray array = jab.build();
 		return array.toString();
 	}
+	
 }
