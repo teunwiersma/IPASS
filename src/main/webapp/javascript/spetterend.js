@@ -14,7 +14,7 @@ function login(event){
 	 fetch("restservices/authentication/", { method : 'POST', body: encData})
 	        .then(function(response){
 	         if(response.ok){
-	            //window.location.assign("gerechttoevoegen.html");
+	            window.location.assign("gerechttoevoegen.html");
 	            return response.json();
 	          }else{
 	                alert("Wrong username/password");
@@ -26,7 +26,6 @@ function login(event){
 	    			var base64 = base64Url.replace('-', '+').replace('_', '/');
 	    			var tokenS = JSON.parse(window.atob(base64));
 	    			window.localStorage.setItem("gebruikerid", tokenS['role']);
-	    			console.log(tokenS['role']);
 	    			
 	    		})
 	            .then(myToken => window.sessionStorage.setItem("sessionToken", myToken.JWT))
