@@ -26,6 +26,7 @@ function login(event){
 	    			var base64 = base64Url.replace('-', '+').replace('_', '/');
 	    			var tokenS = JSON.parse(window.atob(base64));
 	    			window.localStorage.setItem("gebruikerid", tokenS);
+	    			console.log(tokenS);
 	    			
 	    		})
 	            .then(myToken => window.sessionStorage.setItem("sessionToken", myToken.JWT))
