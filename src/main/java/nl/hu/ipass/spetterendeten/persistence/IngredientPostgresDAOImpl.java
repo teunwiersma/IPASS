@@ -12,7 +12,6 @@ import nl.hu.ipass.spetterendeten.model.Ingredient;
 
 public class IngredientPostgresDAOImpl extends PostgresBaseDAO implements IngredientDAO {
 	
-	private UserDao userdaoimpl = new UserPostgresDaoImpl();
 	
 	private List<Ingredient> selectIngredient (String query){
 		List<Ingredient> results = new ArrayList<Ingredient>();
@@ -39,10 +38,8 @@ public class IngredientPostgresDAOImpl extends PostgresBaseDAO implements Ingred
 	}
 	
 	@Override
-	public List<Ingredient> findAll(){
-		//System.out.println(userdaoimpl.findGebruikerIDForUser("henk", "1234"));
-		String gebruikerid = userdaoimpl.getGebruikerid() ; 
-		//if(gebruikerid)
+	public List<Ingredient> findAll(String gebruikerid){
+	
 		return selectIngredient("SELECT * FROM Ingredient where gebruikerid = " +  gebruikerid  + " ORDER BY IngredientID DESC;");
 	}
 	

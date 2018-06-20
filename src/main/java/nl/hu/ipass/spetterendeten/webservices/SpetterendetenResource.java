@@ -44,29 +44,6 @@ public class SpetterendetenResource {
 		return Response.ok(newIngredient).build();
 	}
 
-	@GET
-	@Produces("application/json")
-	public String getIngredienten() {
-		
-		JsonArrayBuilder jab = Json.createArrayBuilder();
-		
-		for (Ingredient i : service.getAllIngredienten()) {
-			JsonObjectBuilder job = Json.createObjectBuilder();
-			job.add("ingredientid", i.getIngredientid());
-			job.add("Ingredient", i.getNaam());
-			job.add("energie", i.getEnergie());
-			job.add("water", i.getWater());
-			job.add("eiwit", i.getEiwit());
-			job.add("koolhydraten", i.getKoolhydraten());
-			job.add("suikers", i.getSuikers());
-			job.add("vet", i.getVet());
-			job.add("gebruikersid", i.getGebruikerid());
-			
-			jab.add(job);
-
-		}
-		JsonArray array = jab.build();
-		return array.toString();
-	}
+	
 	
 }

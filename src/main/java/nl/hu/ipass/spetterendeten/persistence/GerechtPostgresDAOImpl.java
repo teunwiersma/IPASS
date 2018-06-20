@@ -33,7 +33,7 @@ public class GerechtPostgresDAOImpl extends PostgresBaseDAO implements GerechtDA
 	
 	@Override
 	public List<Gerecht> findAll(){
-		return selectGerecht("SELECT * FROM GERECHT ORDER BY GERECHTID DESC;");
+		return selectGerecht("SELECT * FROM GERECHT  where gebruikerid = 2 ORDER BY GERECHTID DESC;");
 	}
 	
 	@Override

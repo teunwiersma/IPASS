@@ -1,9 +1,26 @@
 function initpage(){
+	document.querySelector("#username").setAttribute("value", window.sessionStorage.getItem('username'));
+	document.querySelector("#password").setAttribute("value", window.sessionStorage.getItem('password'));
 
+
+	
 	laadingredienten();
-
+	gebruikeridFunctie()
 	knopjes();
 	
+}
+function gebruikeridFunctie(){
+
+    var formData = new FormData(document.querySelector("#ontzichtbaar"));
+    var encData = new URLSearchParams(formData.entries());
+
+
+    var fetchoptions = {method: 'POST', body:encData};
+
+    fetch("restservices/ingredientGerecht", fetchoptions)
+    .then(response => response.json())
+    .then(function(myJson){ console.log(myJson); });
+          
 }
 
 function toevoegenGerecht(){
@@ -64,7 +81,7 @@ function knopjes(){
 }
 
 function laadingredienten(){
-	fetch("restservices/ingredienten/")
+	fetch("restservices/ingredientGerecht/")
 	.then(response => response.json())
 	.then(function(ingredienten){
 		

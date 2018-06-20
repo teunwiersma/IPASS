@@ -26,9 +26,6 @@ public class UserPostgresDaoImpl extends PostgresBaseDAO implements UserDao {
 		return gebruikerid;
 	}
 	
-	public String getGebruikerid() {
-		return "2";
-	}
 	
 	
 }

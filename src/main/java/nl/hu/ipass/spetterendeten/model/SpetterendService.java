@@ -19,8 +19,8 @@ public class SpetterendService {
 		return gerechtdaoimpl.findAll();
 	}
 	
-	public List<Ingredient> getAllIngredienten(){
-		return ingredientdaoimpl.findAll();
+	public List<Ingredient> getAllIngredienten(String gebruikerid){
+		return ingredientdaoimpl.findAll(gebruikerid);
 	}
 	
 	public Ingredient getIngredientByID(int ingredientID) {

@@ -6,5 +6,4 @@ public interface UserDao {
 	
 	public String findGebruikerIDForUser(String name, String pass);
 
-	public String getGebruikerid();
 }
