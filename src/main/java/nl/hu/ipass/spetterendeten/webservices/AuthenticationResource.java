@@ -51,11 +51,11 @@ public class AuthenticationResource {
 									  @FormParam("password")String password) {
 		try {
 			UserDao dao = new UserPostgresDaoImpl();
-			String gebruikerid = dao.findGebruikerIDForUser(username, password);
+			String role = dao.findGebruikerIDForUser(username, password);
 			
-			if(gebruikerid == null) { throw new IllegalArgumentException("No user found");}
+			if(role == null) { throw new IllegalArgumentException("No user found");}
 			
-			String token = createToken(username, gebruikerid);
+			String token = createToken(username, role);
 			
 			SimpleEntry<String, String> JWT = new SimpleEntry<String, String>("JWT", token);
 			return Response.ok(JWT).build();

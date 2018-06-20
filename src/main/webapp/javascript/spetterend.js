@@ -14,7 +14,7 @@ function login(event){
 	 fetch("restservices/authentication/", { method : 'POST', body: encData})
 	        .then(function(response){
 	         if(response.ok){
-	           // window.location.assign("gerechttoevoegen.html");
+	            window.location.assign("gerechttoevoegen.html");
 	            return response.json();
 	          }else{
 	                alert("Wrong username/password");
