@@ -13,6 +13,7 @@ import javax.ws.rs.Produces;
 import nl.hu.ipass.spetterendeten.model.Gerecht;
 import nl.hu.ipass.spetterendeten.model.ServiceProvider;
 import nl.hu.ipass.spetterendeten.model.SpetterendService;
+import nl.hu.ipass.spetterendeten.model.openbaarGerecht;
 import nl.hu.ipass.spetterendeten.persistence.UserDao;
 import nl.hu.ipass.spetterendeten.persistence.UserPostgresDaoImpl;
 
@@ -47,6 +48,25 @@ public class gerechtResource{
 			JsonObjectBuilder job = Json.createObjectBuilder();
 			job.add("naam" , g.getNaam());
 			job.add("gerechtid", g.getGerechtid());
+			job.add("gebruikerid" , g.getGebruikerid());
+			
+			jab.add(job);
+		}
+		JsonArray array = jab.build();
+		return array.toString();
+	}
+	
+	@Path("/openbaargerecht")
+	@GET
+	@Produces("application/json")
+	public String getOpenbaarGerecht() {
+		
+		JsonArrayBuilder jab = Json.createArrayBuilder();
+		
+		for (openbaarGerecht g : service.getAllOpenbaarGerechten(gebruikerid)) {
+			JsonObjectBuilder job = Json.createObjectBuilder();
+			job.add("openbaargerechtid" , g.getOpenbaarGerechtID());
+			job.add("gerechtid", g.getGerechtID());
 			job.add("gebruikerid" , g.getGebruikerid());
 			
 			jab.add(job);

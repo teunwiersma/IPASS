@@ -5,6 +5,7 @@ function initpage(){
 	laadgerechten()
 	knopjes();
 	gebruikeridFunctie();
+	gerechtDelen();
 }
 
 
@@ -83,21 +84,26 @@ function laadgerechten(){
 		    
 		    toevoeg.addEventListener("click", function(){
 				event.preventDefault();
-					var rows = document.createElement("tr");
+				 document.querySelector("#naam").setAttribute("value", gerecht.naam)
+		      	 document.querySelector("#gerechtid").setAttribute("value", gerecht.gerechtid);
+		      	 document.querySelector("#gebruikerid").setAttribute("value", gerecht.gebruikerid);
 					
-					var ingredientje = document.createElement("td");
-					var ingredientjes = document.createTextNode(ingredient.Ingredient);
-					ingredientje.appendChild(ingredientjes);
-					rows.appendChild(ingredientje);
-					
-					var idcolumn = document.createElement("td");
-					var idText = document.createTextNode(ingredient.ingredientid);
-					idcolumn.appendChild(idText);
-					rows.appendChild(idcolumn);
-					
-					document.querySelector("#gerechtlijst").appendChild(rows);
 		    })
 		}
+	})
+}
+
+function gerechtDelen(){
+	document.querySelector("#delen").addEventListener("click", function(){
+		var formData = new FormData(document.querySelector("#deelform"));
+		var encData = new URLSearchParams(formData.entries());
+		
+		var fetchoptions = {method: 'POST', body:encData};
+		
+		fetch("restservices/openbaargerecht/gerechtdelen", fetchoptions)
+		.then(response => response.json(), alert("Gerecht gedeeld!"))
+		.then(function(myJson){console.log(myJson); });
+		
 	})
 }
 

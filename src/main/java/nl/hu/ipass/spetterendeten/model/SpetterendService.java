@@ -17,6 +17,10 @@ public class SpetterendService {
 		return gerechtdaoimpl.findAll(gebruikerid);
 	}
 	
+	public List<openbaarGerecht> getAllOpenbaarGerechten(String gebruikerid){
+		return gerechtdaoimpl.findAllOpenbaarGerecht(gebruikerid);
+	}
+	
 	public List<Ingredient> getAllIngredienten(String gebruikerid){
 		return ingredientdaoimpl.findAll(gebruikerid);
 	}
@@ -49,6 +53,12 @@ public class SpetterendService {
 				return newingredient;
 			
 		
+	}
+	
+	public openbaarGerecht gerechtdelen(int gerechtid, int gebruikerid) {
+		openbaarGerecht newopenbaargerecht = new openbaarGerecht(gerechtid, gebruikerid);
+		gerechtdaoimpl.gerechtDelen(newopenbaargerecht);
+		return newopenbaargerecht;
 	}
 	
 	

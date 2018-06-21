@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nl.hu.ipass.spetterendeten.model.Gerecht;
+import nl.hu.ipass.spetterendeten.model.openbaarGerecht;
 
 public class GerechtPostgresDAOImpl extends PostgresBaseDAO implements GerechtDAO {
 
@@ -31,11 +32,37 @@ public class GerechtPostgresDAOImpl extends PostgresBaseDAO implements GerechtDA
 		return results;
 	}
 	
+	private List<openbaarGerecht> SelectOpenbaarGerecht(String query){
+		List<openbaarGerecht> results = new ArrayList<openbaarGerecht>();
+		try (Connection con = super.getConnection()){
+			PreparedStatement pstmt = con.prepareStatement(query);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				int openbaargerechtid = rs.getInt("openbaargerechtid" );
+				int gerechtid = rs.getInt("gerechtid");
+				int gebruikerid = rs.getInt("gebruikerid" );
+				
+				openbaarGerecht newOpenbaarGerecht = new openbaarGerecht(openbaargerechtid, gerechtid, gebruikerid);
+				results.add(newOpenbaarGerecht);
+			}
+		}catch (SQLException sqle) {
+			sqle.printStackTrace();
+	}
+		return results;
+	}
+	
+	@Override 
+	public List<openbaarGerecht> findAllOpenbaarGerecht(String gebruikerid){
+		return SelectOpenbaarGerecht("SELECT * FROM OPENBAARGERECHT ORDER BY GERECHTID ASC");
+	}
+	
 	@Override
 	public List<Gerecht> findAll(String gebruikerid){
 		
-		return selectGerecht("SELECT * FROM GERECHT  where gebruikerid = " + gebruikerid + " ORDER BY GERECHTID DESC;");
+		return selectGerecht("SELECT * FROM GERECHT  where gebruikerid = " + gebruikerid + " ORDER BY GERECHTID ASC;");
 	}
+	
+	
 	
 	@Override
 	public boolean save(Gerecht gerecht) {
@@ -68,6 +95,20 @@ public class GerechtPostgresDAOImpl extends PostgresBaseDAO implements GerechtDA
 			System.out.println(e);
 		}
 		return gerecht;
+	}
+	
+	@Override
+	public boolean gerechtDelen(openbaarGerecht openbaargerecht) {
+		try(Connection connection = super.getConnection()){
+			String query ="INSERT INTO OPENBAARGERECHT(gerechtid, gebruikerid) VALUES (?,?)";
+			PreparedStatement stmt = connection.prepareStatement(query);
+			stmt.setInt(1, openbaargerecht.getGerechtID());
+			stmt.setInt(2, openbaargerecht.getGebruikerid());
+			stmt.executeUpdate();
+		}catch (Exception e) {
+			System.out.println(e);
+		}
+		return true;
 	}
 
 }
