@@ -1,3 +1,13 @@
+function initpage(){
+	document.querySelector("#username").setAttribute("value", window.sessionStorage.getItem('username'));
+	document.querySelector("#password").setAttribute("value", window.sessionStorage.getItem('password'));
+
+	laadgerechten()
+	knopjes();
+	gebruikeridFunctie();
+}
+
+
 function knopjes(){
 
 	document.querySelector("#gerechttoevoegen").addEventListener("click", function(){
@@ -38,7 +48,7 @@ function knopjes(){
     }
 }
 function laadgerechten(){
-	fetch("restservices/gerechten/")
+	fetch("restservices/openbaargerecht/")
 	.then(response => response.json())
 	.then(function(gerechten){
 		for(const gerecht of gerechten){
@@ -90,5 +100,19 @@ function laadgerechten(){
 		}
 	})
 }
-laadgerechten()
-knopjes();
+
+function gebruikeridFunctie(){
+
+    var formData = new FormData(document.querySelector("#ontzichtbaar"));
+    var encData = new URLSearchParams(formData.entries());
+
+
+    var fetchoptions = {method: 'POST', body:encData};
+
+    fetch("restservices/openbaargerecht", fetchoptions)
+    .then(response => response.json())
+    .then(function(myJson){ console.log(myJson); });
+          
+}
+
+initpage();

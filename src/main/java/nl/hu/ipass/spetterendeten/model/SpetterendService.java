@@ -6,17 +6,15 @@ import nl.hu.ipass.spetterendeten.persistence.GerechtDAO;
 import nl.hu.ipass.spetterendeten.persistence.GerechtPostgresDAOImpl;
 import nl.hu.ipass.spetterendeten.persistence.IngredientDAO;
 import nl.hu.ipass.spetterendeten.persistence.IngredientPostgresDAOImpl;
-import nl.hu.ipass.spetterendeten.persistence.UserDao;
-import nl.hu.ipass.spetterendeten.persistence.UserPostgresDaoImpl;
+
 
 public class SpetterendService {
 
 	private GerechtDAO gerechtdaoimpl = new GerechtPostgresDAOImpl();
 	private IngredientDAO ingredientdaoimpl = new IngredientPostgresDAOImpl();
-	private UserDao userdaoimpl = new UserPostgresDaoImpl();
 	
-	public List<Gerecht> getAllGerechten(){
-		return gerechtdaoimpl.findAll();
+	public List<Gerecht> getAllGerechten(String gebruikerid){
+		return gerechtdaoimpl.findAll(gebruikerid);
 	}
 	
 	public List<Ingredient> getAllIngredienten(String gebruikerid){
@@ -31,8 +29,8 @@ public class SpetterendService {
 		return gerechtdaoimpl.findByNaam(naam);
 	}
 	
-	public Gerecht saveGerecht( int gerechtid, String naam, int gebruikerid) {
-		for (Gerecht gerecht : getAllGerechten()) {
+	public Gerecht saveGerecht( int gerechtid, String naam, String gebruikerid) {
+		for (Gerecht gerecht : getAllGerechten(gebruikerid)) {
 			if(!(gerecht.getNaam() == (naam))) {
 				
 				Gerecht newgerecht = new Gerecht ( gerechtid,  naam,  gebruikerid);

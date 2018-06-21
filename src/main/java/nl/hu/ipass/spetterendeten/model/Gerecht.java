@@ -5,11 +5,11 @@ public class Gerecht {
 
 	private int gerechtid;
 	private String naam;
-	private int gebruikerid;
+	private String gebruikerid;
 	
 	
 	
-	public Gerecht(int gerechtid, String naam, int gebruikerid) {
+	public Gerecht(int gerechtid, String naam, String gebruikerid) {
 		this.gerechtid = gerechtid;
 		this.naam = naam;
 		this.gebruikerid = gebruikerid;
@@ -35,12 +35,12 @@ public class Gerecht {
 		this.naam = naam;
 	}
 
-	public int getGebruikerid() {
+	public String getGebruikerid() {
 		return gebruikerid;
 	}
 
 
-	public void setGebruikerid(int gebruikerid) {
+	public void setGebruikerid(String gebruikerid) {
 		this.gebruikerid = gebruikerid;
 	}
 }

@@ -20,7 +20,7 @@ public class GerechtPostgresDAOImpl extends PostgresBaseDAO implements GerechtDA
 			while(rs.next()) {
 				int gerechtid = rs.getInt("gerechtid");
 				String naam = rs.getString("naam");
-				int gebruikerid = rs.getInt("gebruikerid");
+				String gebruikerid = rs.getString("gebruikerid");
 
 				Gerecht newGerecht = new Gerecht( gerechtid,  naam,  gebruikerid);
 				results.add(newGerecht);
@@ -32,8 +32,9 @@ public class GerechtPostgresDAOImpl extends PostgresBaseDAO implements GerechtDA
 	}
 	
 	@Override
-	public List<Gerecht> findAll(){
-		return selectGerecht("SELECT * FROM GERECHT  where gebruikerid = 2 ORDER BY GERECHTID DESC;");
+	public List<Gerecht> findAll(String gebruikerid){
+		
+		return selectGerecht("SELECT * FROM GERECHT  where gebruikerid = " + gebruikerid + " ORDER BY GERECHTID DESC;");
 	}
 	
 	@Override
@@ -42,7 +43,7 @@ public class GerechtPostgresDAOImpl extends PostgresBaseDAO implements GerechtDA
 			String query = "insert into gerecht(naam, gebruikerid) values (?, ?)";
 			PreparedStatement stmt = connection.prepareStatement(query);
 			stmt.setString(1, gerecht.getNaam());
-			stmt.setInt(2, gerecht.getGebruikerid());
+			stmt.setString(2, gerecht.getGebruikerid());
 			stmt.executeUpdate();
 		} catch (Exception e) {
 			System.out.println(e);
@@ -59,7 +60,7 @@ public class GerechtPostgresDAOImpl extends PostgresBaseDAO implements GerechtDA
 			ResultSet resultset = stmt.executeQuery("select * from gerecht where naam = '"+ naam + "';");
 
 			while (resultset.next()) {
-				gerecht = new Gerecht(resultset.getInt("gerechtid"), resultset.getString("naam"), resultset.getInt("gebruikerid"));
+				gerecht = new Gerecht(resultset.getInt("gerechtid"), resultset.getString("naam"), resultset.getString("gebruikerid"));
 			}
 			resultset.close();
 			stmt.close();

@@ -6,7 +6,7 @@ import nl.hu.ipass.spetterendeten.model.Gerecht;
 
 public interface GerechtDAO {
 
-	public List<Gerecht> findAll();
+	public List<Gerecht> findAll(String gebruikerid);
 	public boolean save(Gerecht gerecht);
 	public Gerecht findByNaam(String naam);
 }

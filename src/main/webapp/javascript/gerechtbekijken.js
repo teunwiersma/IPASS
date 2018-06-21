@@ -1,3 +1,13 @@
+function initpage(){
+	document.querySelector("#username").setAttribute("value", window.sessionStorage.getItem('username'));
+	document.querySelector("#password").setAttribute("value", window.sessionStorage.getItem('password'));
+
+	gebruikeridFunctie();
+	laadgerechten()
+	knopjes();
+}
+
+
 function knopjes(){
 
 	document.querySelector("#gerechttoevoegen").addEventListener("click", function(){
@@ -68,5 +78,19 @@ function laadgerechten(){
 		}
 	})
 }
-laadgerechten()
-knopjes();
+
+function gebruikeridFunctie(){
+
+    var formData = new FormData(document.querySelector("#ontzichtbaar"));
+    var encData = new URLSearchParams(formData.entries());
+
+
+    var fetchoptions = {method: 'POST', body:encData};
+
+    fetch("restservices/gerechten", fetchoptions)
+    .then(response => response.json())
+    .then(function(myJson){ console.log(myJson); });
+          
+}
+
+initpage();
