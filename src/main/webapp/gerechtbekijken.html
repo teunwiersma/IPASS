@@ -7,6 +7,31 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="UTF-8">
 <title>Gerecht bekijken</title>
+<style>
+.collapsible {
+    background-color: #777;
+    color: white;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+}
+
+.active, .collapsible:hover {
+    background-color: #555;
+}
+
+.content {
+    padding: 0 18px;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
+    background-color: #f1f1f1;
+}
+</style>
 </head>
 <body>
 	<div id="frame">
@@ -26,29 +51,32 @@
 		</div>
 		<div id="gerechtbekijken">
 			<h1>Gerecht bekijken:</h1>
-		<h4>Eigen Gerechten:</h4>
+		
+		<div id="namen" class ="content">
+		<div id="ingredienten" >
+		</div>
+		</div>
+		<button class="collapsible">Eigen Gerechten</button>
+		<div class="content">
 		<form id="gerechtenform">
 			<table id="gerechtenlijst">
-				<tr>
-					<th>gerecht naam</th>
-					<th> gerecht id</th>
-					<th>gebruikerid</th>
-					
-				</tr>
+				
 			</table>
 		</form>
-		
-		<h4>Gedeeld met jouw:</h4>
+		</div>
+		<button class="collapsible">Gedeeld met jouw</button>
+		<div class="content">
+  
 		<form id="openbaregerechtenform">
 			<table id="openbaregerechtenlijst">
 				<tr>
 					<th>gerecht naam</th>
-					<th> gerecht id</th>
-					<th>gebruikerid</th>
+		
 					
 				</tr>
 			</table>
 		</form>
+		</div>
 		</div>
 		</div>
 		<form id="ontzichtbaar">

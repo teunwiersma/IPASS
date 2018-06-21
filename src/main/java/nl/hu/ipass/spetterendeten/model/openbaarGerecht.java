@@ -5,7 +5,8 @@ public class openbaarGerecht {
 	private int openbaarGerechtID;
 	private int GerechtID;
 	private int gebruikerid;
-
+	private String gerechtNaam;
+	
 	public openbaarGerecht(int openbaarGerechtID, int gerechtID, int gebruikerid) {
 		this.openbaarGerechtID = openbaarGerechtID;
 		this.GerechtID = gerechtID;
@@ -15,6 +16,10 @@ public class openbaarGerecht {
 	public openbaarGerecht(int gerechtID, int gebruikerid) {
 		this.GerechtID = gerechtID;
 		this.gebruikerid = gebruikerid;
+	}
+
+	public openbaarGerecht(String gerechtNaam) {
+		this.gerechtNaam = gerechtNaam;
 	}
 
 	public int getOpenbaarGerechtID() {
@@ -39,5 +44,13 @@ public class openbaarGerecht {
 
 	public void setGebruikerid(int gebruikerid) {
 		this.gebruikerid = gebruikerid;
+	}
+
+	public String getGerechtNaam() {
+		return gerechtNaam;
+	}
+
+	public void setGerechtNaam(String gerechtNaam) {
+		this.gerechtNaam = gerechtNaam;
 	}
 }

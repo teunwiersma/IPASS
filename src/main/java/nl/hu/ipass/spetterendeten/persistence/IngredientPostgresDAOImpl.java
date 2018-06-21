@@ -20,7 +20,7 @@ public class IngredientPostgresDAOImpl extends PostgresBaseDAO implements Ingred
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
 				int ingredientid = rs.getInt("ingredientid");
-				String naam = rs.getString("naam");
+				String naam = rs.getString("naamingredient");
 				int energie = rs.getInt("energie");
 				int water = rs.getInt("water");
 				int eiwit = rs.getInt("eiwit");
@@ -46,7 +46,7 @@ public class IngredientPostgresDAOImpl extends PostgresBaseDAO implements Ingred
 	@Override
 	public boolean save(Ingredient Ingredient) {
 		try (Connection connection = super.getConnection()) {
-			String query = "insert into Ingredient(naam, gebruikerid, energie,  water,  eiwit,  koolhydraten,  suikers,  vet) values(?, ?, ?, ?, ?, ?, ?, ?)";
+			String query = "insert into Ingredient(naamingredient, gebruikerid, energie,  water,  eiwit,  koolhydraten,  suikers,  vet) values(?, ?, ?, ?, ?, ?, ?, ?)";
 			PreparedStatement stmt = connection.prepareStatement(query);
 			stmt.setString(1, Ingredient.getNaam());
 			stmt.setInt(2, Ingredient.getGebruikerid());
@@ -77,7 +77,7 @@ public class IngredientPostgresDAOImpl extends PostgresBaseDAO implements Ingred
 			ResultSet rs = stmt.executeQuery("select * from Ingredient where ingredientid = '"+ ingredientid + "';");
 
 			while (rs.next()) {
-				Ingredient = new Ingredient(rs.getInt("ingredientid" ), rs.getString("naam"), rs.getInt("energie"), rs.getInt("water"), rs.getInt("eiwit"), rs.getInt("koolhydraten"), rs.getInt("suikers"), rs.getInt("vet"), rs.getInt("gebruikerid"));
+				Ingredient = new Ingredient(rs.getInt("ingredientid" ), rs.getString("naamingredient"), rs.getInt("energie"), rs.getInt("water"), rs.getInt("eiwit"), rs.getInt("koolhydraten"), rs.getInt("suikers"), rs.getInt("vet"), rs.getInt("gebruikerid"));
 			}
 			rs.close();
 			stmt.close();

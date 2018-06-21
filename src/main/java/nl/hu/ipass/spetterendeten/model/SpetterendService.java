@@ -13,12 +13,16 @@ public class SpetterendService {
 	private GerechtDAO gerechtdaoimpl = new GerechtPostgresDAOImpl();
 	private IngredientDAO ingredientdaoimpl = new IngredientPostgresDAOImpl();
 	
-	public List<Gerecht> getAllGerechten(String gebruikerid){
-		return gerechtdaoimpl.findAll(gebruikerid);
+	public List<Gerecht> getAllIngredientenGerecht(String gebruikerid){
+		return gerechtdaoimpl.findAllIngredientenGerecht(gebruikerid);
 	}
 	
 	public List<openbaarGerecht> getAllOpenbaarGerechten(String gebruikerid){
 		return gerechtdaoimpl.findAllOpenbaarGerecht(gebruikerid);
+	}
+	
+	public List<Gerecht> getAllNaamGerecht(String gebruikerid){
+		return gerechtdaoimpl.findAllNaamGerecht(gebruikerid);
 	}
 	
 	public List<Ingredient> getAllIngredienten(String gebruikerid){
@@ -29,21 +33,13 @@ public class SpetterendService {
 		return ingredientdaoimpl.findByID(ingredientID);
 	}
 	
-	public Gerecht getGerechtByNaam(String naam) {
-		return gerechtdaoimpl.findByNaam(naam);
-	}
 	
 	public Gerecht saveGerecht( int gerechtid, String naam, String gebruikerid) {
-		for (Gerecht gerecht : getAllGerechten(gebruikerid)) {
-			if(!(gerecht.getNaam() == (naam))) {
-				
 				Gerecht newgerecht = new Gerecht ( gerechtid,  naam,  gebruikerid);
 				gerechtdaoimpl.save(newgerecht);
 				return newgerecht;
-			}
-		}
-		return null;
 	}
+	
 	
 	
 	public Ingredient saveingredient( String naam, int energie, int water, int eiwit, int koolhydraten, int suikers, int vet, int gebruikerid) {			

@@ -48,9 +48,9 @@ public class openbaarGerechtResource{
 		
 		JsonArrayBuilder jab = Json.createArrayBuilder();
 		
-		for (Gerecht g : service.getAllGerechten(gebruikerid)) {
+		for (Gerecht g : service.getAllNaamGerecht(gebruikerid)) {
 			JsonObjectBuilder job = Json.createObjectBuilder();
-			job.add("naam" , g.getNaam());
+			job.add("naamgerecht" , g.getNaamGerecht());
 			job.add("gerechtid", g.getGerechtid());
 			job.add("gebruikerid" , g.getGebruikerid());
 			

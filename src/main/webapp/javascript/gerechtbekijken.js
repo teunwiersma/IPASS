@@ -3,9 +3,25 @@ function initpage(){
 	document.querySelector("#password").setAttribute("value", window.sessionStorage.getItem('password'));
 
 	gebruikeridFunctie();
-	laadgerechten()
+	
 	knopjes();
 	laadOpenbaarGerecht();
+	laadNaamGerechten();
+	
+	var coll = document.getElementsByClassName("collapsible");
+	var i;
+
+	for (i = 0; i < coll.length; i++) {
+	  coll[i].addEventListener("click", function() {
+	    this.classList.toggle("active");
+	    var content = this.nextElementSibling;
+	    if (content.style.maxHeight){
+	      content.style.maxHeight = null;
+	    } else {
+	      content.style.maxHeight = content.scrollHeight + "px";
+	    } 
+	  });
+	}
 }
 
 
@@ -54,28 +70,54 @@ function laadgerechten(){
 	fetch("restservices/gerechten/")
 	.then(response => response.json())
 	.then(function(gerechten){
+		{ console.log(gerechten); }
+	
+		
 		for(const gerecht of gerechten){
 			var row = document.createElement("tr");
 			
-			row.setAttribute('id', gerecht.gerechtid);
-			
-			var naamColumn = document.createElement("td");
-		    var naamText = document.createTextNode(gerecht.naam);
-		    naamColumn.appendChild(naamText);
-		    row.appendChild(naamColumn);
+		
 		    
-		    var gerechtidColumn = document.createElement("td");
-		    var gerechtidText = document.createTextNode(gerecht.gerechtid);
-		    gerechtidColumn.appendChild(gerechtidText);
-		    row.appendChild(gerechtidColumn);
+		    var naamingredientColumn = document.createElement("td");
+		    var naamingredientText = document.createTextNode(gerecht.naamingredient);
+		    naamingredientColumn.appendChild(naamingredientText);
+		    row.appendChild(naamingredientColumn);
 		    
-		    var gebruikeridColumn = document.createElement("td");
-		    var gebruikeridText = document.createTextNode(gerecht.gebruikerid);
-		    gebruikeridColumn.appendChild(gebruikeridText);
-		    row.appendChild(gebruikeridColumn);
-		    
+		   
 		    
 		    document.querySelector("#gerechtenlijst").appendChild(row);
+		}
+	})
+}
+
+function laadNaamGerechten(){
+	fetch("restservices/gerechten/naamgerecht")
+	.then(response => response.json())
+	.then(function(gerechten){
+		{ console.log(gerechten); }
+		for(const gerecht of gerechten){
+//			var naamGerechtButton = document.createElement("input");
+//			naamGerechtButton.setAttribute('value', gerecht.naamgerecht);
+//			naamGerechtButton.setAttribute('type', 'button');
+//			naamGerechtButton.setAttribute('class', 'collapsible');
+//			
+//			var ingredientendiv = document.createElement("div");
+//			ingredientendiv.setAttribute('id', "gerechtenlijst");
+//			document.querySelector("#ingredienten").appendChild(naamGerechtButton);
+			var row = document.createElement("tr");
+			
+		
+		    
+		    var naamingredientColumn = document.createElement("td");
+		    var naamingredientText = document.createTextNode(gerecht.naamgerecht);
+		    naamingredientColumn.appendChild(naamingredientText);
+		    row.appendChild(naamingredientColumn);
+		    
+		   
+		    
+		    document.querySelector("#gerechtenlijst").appendChild(row);
+			
+			
 		}
 	})
 }
@@ -90,19 +132,10 @@ function laadOpenbaarGerecht(){
 			row.setAttribute('id', gerecht.gerechtid);
 			
 			var openbaarGerechtidColumn = document.createElement("td");
-			var openbaarGerechtidText = document.createTextNode(gerecht.openbaargerechtid);
+			var openbaarGerechtidText = document.createTextNode(gerecht.naamgerecht);
 			openbaarGerechtidColumn.appendChild(openbaarGerechtidText);
 			row.appendChild(openbaarGerechtidColumn);
 			
-		    var gerechtidColumn = document.createElement("td");
-		    var gerechtidText = document.createTextNode(gerecht.gerechtid);
-		    gerechtidColumn.appendChild(gerechtidText);
-		    row.appendChild(gerechtidColumn);
-		    
-		    var gebruikeridColumn = document.createElement("td");
-		    var gebruikeridText = document.createTextNode(gerecht.gebruikerid);
-		    gebruikeridColumn.appendChild(gebruikeridText);
-		    row.appendChild(gebruikeridColumn);
 		    
 		    document.querySelector("#openbaregerechtenlijst").appendChild(row);
 		}

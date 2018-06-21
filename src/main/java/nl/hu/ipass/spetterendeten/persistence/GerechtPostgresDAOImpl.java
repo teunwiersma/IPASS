@@ -19,11 +19,10 @@ public class GerechtPostgresDAOImpl extends PostgresBaseDAO implements GerechtDA
 			PreparedStatement pstmt = con.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
-				int gerechtid = rs.getInt("gerechtid");
-				String naam = rs.getString("naam");
 				String gebruikerid = rs.getString("gebruikerid");
+				String naamingredient = rs.getString("naamingredient");
 
-				Gerecht newGerecht = new Gerecht( gerechtid,  naam,  gebruikerid);
+				Gerecht newGerecht = new Gerecht ( gebruikerid, naamingredient);
 				results.add(newGerecht);
 			}
 		}catch (SQLException sqle) {
@@ -38,11 +37,10 @@ public class GerechtPostgresDAOImpl extends PostgresBaseDAO implements GerechtDA
 			PreparedStatement pstmt = con.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
-				int openbaargerechtid = rs.getInt("openbaargerechtid" );
-				int gerechtid = rs.getInt("gerechtid");
-				int gebruikerid = rs.getInt("gebruikerid" );
+				String naamgerecht = rs.getString("naamgerecht" );
+			
 				
-				openbaarGerecht newOpenbaarGerecht = new openbaarGerecht(openbaargerechtid, gerechtid, gebruikerid);
+				openbaarGerecht newOpenbaarGerecht = new openbaarGerecht(naamgerecht);
 				results.add(newOpenbaarGerecht);
 			}
 		}catch (SQLException sqle) {
@@ -51,15 +49,39 @@ public class GerechtPostgresDAOImpl extends PostgresBaseDAO implements GerechtDA
 		return results;
 	}
 	
-	@Override 
-	public List<openbaarGerecht> findAllOpenbaarGerecht(String gebruikerid){
-		return SelectOpenbaarGerecht("SELECT * FROM OPENBAARGERECHT ORDER BY GERECHTID ASC");
+	private List<Gerecht> selectNaamGerecht (String query){
+		List<Gerecht> results = new ArrayList<Gerecht>();
+		try (Connection con = super.getConnection()){
+			PreparedStatement pstmt = con.prepareStatement(query);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				String naamgerecht = rs.getString("naamgerecht");
+				int gerechtid = rs.getInt("gerechtid");
+				String gebruikerid = rs.getString("gebruikerid");
+				
+				Gerecht newGerecht = new Gerecht ( gerechtid, naamgerecht, gebruikerid);
+				results.add(newGerecht);
+			}
+		}catch (SQLException sqle) {
+			sqle.printStackTrace();
+	}
+		return results;
 	}
 	
 	@Override
-	public List<Gerecht> findAll(String gebruikerid){
-		
-		return selectGerecht("SELECT * FROM GERECHT  where gebruikerid = " + gebruikerid + " ORDER BY GERECHTID ASC;");
+	public List<Gerecht> findAllNaamGerecht(String gebruikerid){
+		return selectNaamGerecht("select * from gerecht where gebruikerid = " + gebruikerid + ";");
+	}
+	
+	@Override 
+	public List<openbaarGerecht> findAllOpenbaarGerecht(String gebruikerid){
+		return SelectOpenbaarGerecht("select g.naamgerecht from openbaargerecht as og join gerecht as g on g.gerechtid = og.gerechtid;");
+	}
+	
+	@Override
+	public List<Gerecht> findAllIngredientenGerecht(String gebruikerid){
+	
+		return selectGerecht("select g.gebruikerid, i.naamingredient from ingredientgerecht as ig join gerecht as g on g.gerechtid = ig.gerechtid join ingredient as i on i.ingredientid = ig.ingredientid where g.gebruikerid = " + gebruikerid + ";");
 	}
 	
 	
@@ -69,7 +91,7 @@ public class GerechtPostgresDAOImpl extends PostgresBaseDAO implements GerechtDA
 		try (Connection connection = super.getConnection()) {
 			String query = "insert into gerecht(naam, gebruikerid) values (?, ?)";
 			PreparedStatement stmt = connection.prepareStatement(query);
-			stmt.setString(1, gerecht.getNaam());
+			stmt.setString(1, gerecht.getNaamGerecht());
 			stmt.setString(2, gerecht.getGebruikerid());
 			stmt.executeUpdate();
 		} catch (Exception e) {
@@ -78,24 +100,7 @@ public class GerechtPostgresDAOImpl extends PostgresBaseDAO implements GerechtDA
 		return true;
 	}
 	
-	@Override
-	public Gerecht findByNaam(String naam) {
-		Gerecht gerecht = null;
-
-		try (Connection connection = super.getConnection()) {
-			Statement stmt = connection.createStatement();
-			ResultSet resultset = stmt.executeQuery("select * from gerecht where naam = '"+ naam + "';");
-
-			while (resultset.next()) {
-				gerecht = new Gerecht(resultset.getInt("gerechtid"), resultset.getString("naam"), resultset.getString("gebruikerid"));
-			}
-			resultset.close();
-			stmt.close();
-		} catch (Exception e) {
-			System.out.println(e);
-		}
-		return gerecht;
-	}
+	
 	
 	@Override
 	public boolean gerechtDelen(openbaarGerecht openbaargerecht) {
@@ -110,5 +115,7 @@ public class GerechtPostgresDAOImpl extends PostgresBaseDAO implements GerechtDA
 		}
 		return true;
 	}
+
+	
 
 }

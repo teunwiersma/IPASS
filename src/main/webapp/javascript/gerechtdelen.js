@@ -58,7 +58,7 @@ function laadgerechten(){
 			row.setAttribute('id', gerecht.gerechtid);
 			
 			var naamColumn = document.createElement("td");
-		    var naamText = document.createTextNode(gerecht.naam);
+		    var naamText = document.createTextNode(gerecht.naamgerecht);
 		    naamColumn.appendChild(naamText);
 		    row.appendChild(naamColumn);
 		    
@@ -84,7 +84,7 @@ function laadgerechten(){
 		    
 		    toevoeg.addEventListener("click", function(){
 				event.preventDefault();
-				 document.querySelector("#naam").setAttribute("value", gerecht.naam)
+				 document.querySelector("#naam").setAttribute("value", gerecht.naamgerecht)
 		      	 document.querySelector("#gerechtid").setAttribute("value", gerecht.gerechtid);
 		      	 document.querySelector("#gebruikerid").setAttribute("value", gerecht.gebruikerid);
 					

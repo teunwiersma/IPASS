@@ -40,16 +40,29 @@ public class gerechtResource{
 	
 	@GET
 	@Produces("application/json")
-	public String getGerechten() {
+	public String getIngredientenGerecht() {
 		
 		JsonArrayBuilder jab = Json.createArrayBuilder();
 		
-		for (Gerecht g : service.getAllGerechten(gebruikerid)) {
+		for (Gerecht g : service.getAllIngredientenGerecht(gebruikerid)) {
 			JsonObjectBuilder job = Json.createObjectBuilder();
-			job.add("naam" , g.getNaam());
-			job.add("gerechtid", g.getGerechtid());
 			job.add("gebruikerid" , g.getGebruikerid());
-			
+			job.add("naamingredient", g.getNaamingredient());
+			jab.add(job);
+		}
+		JsonArray array = jab.build();
+		return array.toString();
+	}
+	
+	@Path("/naamgerecht")
+	@GET
+	@Produces("application/json")
+	public String getNaamGerecht() {
+		JsonArrayBuilder jab = Json.createArrayBuilder();
+		
+		for (Gerecht g : service.getAllNaamGerecht(gebruikerid)) {
+			JsonObjectBuilder job = Json.createObjectBuilder();
+			job.add("naamgerecht" , g.getNaamGerecht());
 			jab.add(job);
 		}
 		JsonArray array = jab.build();
@@ -65,9 +78,7 @@ public class gerechtResource{
 		
 		for (openbaarGerecht g : service.getAllOpenbaarGerechten(gebruikerid)) {
 			JsonObjectBuilder job = Json.createObjectBuilder();
-			job.add("openbaargerechtid" , g.getOpenbaarGerechtID());
-			job.add("gerechtid", g.getGerechtID());
-			job.add("gebruikerid" , g.getGebruikerid());
+			job.add("naamgerecht" , g.getGerechtNaam());
 			
 			jab.add(job);
 		}
