@@ -12,4 +12,5 @@ public interface GerechtDAO {
 	public boolean gerechtDelen(openbaarGerecht openbaarGerecht);
 	public List<Gerecht> findAllIngredientenGerecht(String gebruikerid);
 	public List<Gerecht> findAllNaamGerecht(String gebruikerid);
+	public List<Gerecht> findNaamGerecht(String naamgerecht);
 }

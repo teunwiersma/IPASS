@@ -19,10 +19,10 @@ public class GerechtPostgresDAOImpl extends PostgresBaseDAO implements GerechtDA
 			PreparedStatement pstmt = con.prepareStatement(query);
 			ResultSet rs = pstmt.executeQuery();
 			while(rs.next()) {
-				String gebruikerid = rs.getString("gebruikerid");
+				int gebruikerid = rs.getInt("gebruikerid");
 				String naamingredient = rs.getString("naamingredient");
 
-				Gerecht newGerecht = new Gerecht ( gebruikerid, naamingredient);
+				Gerecht newGerecht = new Gerecht (naamingredient, gebruikerid);
 				results.add(newGerecht);
 			}
 		}catch (SQLException sqle) {
@@ -57,7 +57,7 @@ public class GerechtPostgresDAOImpl extends PostgresBaseDAO implements GerechtDA
 			while(rs.next()) {
 				String naamgerecht = rs.getString("naamgerecht");
 				int gerechtid = rs.getInt("gerechtid");
-				String gebruikerid = rs.getString("gebruikerid");
+				int gebruikerid = rs.getInt("gebruikerid");
 				
 				Gerecht newGerecht = new Gerecht ( gerechtid, naamgerecht, gebruikerid);
 				results.add(newGerecht);
@@ -66,6 +66,28 @@ public class GerechtPostgresDAOImpl extends PostgresBaseDAO implements GerechtDA
 			sqle.printStackTrace();
 	}
 		return results;
+	}
+	
+	private List<Gerecht> selectgerechtnaam (String query){
+		List<Gerecht> results = new ArrayList<Gerecht>();
+		try (Connection con = super.getConnection()){
+			PreparedStatement pstmt = con.prepareStatement(query);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				String naamgerecht = rs.getString("naamgerecht");
+				int gerechtid = rs.getInt("gerechtid");
+				Gerecht newGerecht = new Gerecht (naamgerecht, gerechtid);
+				results.add(newGerecht);
+			}
+		}catch (SQLException sqle) {
+			sqle.printStackTrace();
+	}
+		return results;
+	}
+	
+	@Override
+	public List<Gerecht> findNaamGerecht(String naamgerecht) {
+		return selectgerechtnaam("SELECT NAAMGERECHT FROM GERECHT WHERE NAAMGERECHT = '" + naamgerecht + "';");
 	}
 	
 	@Override
@@ -89,10 +111,10 @@ public class GerechtPostgresDAOImpl extends PostgresBaseDAO implements GerechtDA
 	@Override
 	public boolean save(Gerecht gerecht) {
 		try (Connection connection = super.getConnection()) {
-			String query = "insert into gerecht(naam, gebruikerid) values (?, ?)";
+			String query = "insert into gerecht(naamgerecht, gebruikerid) values (?, ?)";
 			PreparedStatement stmt = connection.prepareStatement(query);
 			stmt.setString(1, gerecht.getNaamGerecht());
-			stmt.setString(2, gerecht.getGebruikerid());
+			stmt.setInt(2, gerecht.getGebruikerid());
 			stmt.executeUpdate();
 		} catch (Exception e) {
 			System.out.println(e);

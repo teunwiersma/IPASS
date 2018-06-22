@@ -6,22 +6,10 @@ function initpage(){
 	
 	knopjes();
 	laadOpenbaarGerecht();
-	laadNaamGerechten();
+	zoekGerecht();
 	
-	var coll = document.getElementsByClassName("collapsible");
-	var i;
+	
 
-	for (i = 0; i < coll.length; i++) {
-	  coll[i].addEventListener("click", function() {
-	    this.classList.toggle("active");
-	    var content = this.nextElementSibling;
-	    if (content.style.maxHeight){
-	      content.style.maxHeight = null;
-	    } else {
-	      content.style.maxHeight = content.scrollHeight + "px";
-	    } 
-	  });
-	}
 }
 
 
@@ -90,37 +78,7 @@ function laadgerechten(){
 	})
 }
 
-function laadNaamGerechten(){
-	fetch("restservices/gerechten/naamgerecht")
-	.then(response => response.json())
-	.then(function(gerechten){
-		{ console.log(gerechten); }
-		for(const gerecht of gerechten){
-//			var naamGerechtButton = document.createElement("input");
-//			naamGerechtButton.setAttribute('value', gerecht.naamgerecht);
-//			naamGerechtButton.setAttribute('type', 'button');
-//			naamGerechtButton.setAttribute('class', 'collapsible');
-//			
-//			var ingredientendiv = document.createElement("div");
-//			ingredientendiv.setAttribute('id', "gerechtenlijst");
-//			document.querySelector("#ingredienten").appendChild(naamGerechtButton);
-			var row = document.createElement("tr");
-			
-		
-		    
-		    var naamingredientColumn = document.createElement("td");
-		    var naamingredientText = document.createTextNode(gerecht.naamgerecht);
-		    naamingredientColumn.appendChild(naamingredientText);
-		    row.appendChild(naamingredientColumn);
-		    
-		   
-		    
-		    document.querySelector("#gerechtenlijst").appendChild(row);
-			
-			
-		}
-	})
-}
+
 
 function laadOpenbaarGerecht(){
 	fetch("restservices/gerechten/openbaargerecht")
@@ -155,5 +113,47 @@ function gebruikeridFunctie(){
     .then(function(myJson){ console.log(myJson); });
           
 }
+
+function refreshTabel(){
+	document.querySelector("#gerechtennaamlijst").innerHTML = " ";
+	
+	var row = document.createElement("tr");
+	
+	var naamrow = document.createElement("th");
+	naamrow.appendChild(document.createTextNode("Gerecht:"));
+	
+	row.appendChild(naamrow);
+	
+	document.querySelector("#gerechtennaamlijst").appendChild(row);
+}
+
+function zoekGerecht(){
+	document.querySelector("#zoekgerecht").addEventListener("click", function(){
+		refreshTabel();
+		var naamgerecht = document.querySelector("#invoergerechtnaam").value;
+		console.log(naamgerecht);
+		fetch("restservices/gerechten/zoekgerecht/" + naamgerecht , {method:'GET'})
+		.then(response => response.json())
+		.then(function(namen){
+			for(const naam of namen){
+				var row = document.createElement("tr");
+
+				var naamgerechtColumn = document.createElement("td");
+				var naamgerechtText = document.createTextNode(naam.naamgerecht);
+				naamgerechtColumn.appendChild(naamgerechtText);
+				row.appendChild(naamgerechtColumn);
+				
+				document.querySelector("#gerechtennaamlijst").appendChild(row);
+				}
+		})
+		
+		
+	})
+		
+	
+	
+}
+
+
 
 initpage();

@@ -1,12 +1,12 @@
 function initpage(){
 	document.querySelector("#username").setAttribute("value", window.sessionStorage.getItem('username'));
 	document.querySelector("#password").setAttribute("value", window.sessionStorage.getItem('password'));
-
-
+	document.querySelector("#gebruikerid").setAttribute("value", parseInt(window.localStorage.getItem('gebruikerid')));
 	
 	laadingredienten();
 	gebruikeridFunctie()
 	knopjes();
+	toevoegenGerecht();
 	
 }
 function gebruikeridFunctie(){
@@ -31,7 +31,7 @@ function toevoegenGerecht(){
 
       var fetchoptions = {method: 'POST', body:encData};
       
-      fetch("restservices/gerecht", fetchoptions)
+      fetch("restservices/gerechten/gerechttoevoegen", fetchoptions)
       .then(response => response.json())
       .then(function(myJson){ console.log(myJson); });
             
@@ -155,6 +155,7 @@ function laadingredienten(){
 		}
 	})
 }
+
 
 
 initpage();

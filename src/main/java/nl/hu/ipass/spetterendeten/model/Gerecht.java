@@ -5,11 +5,11 @@ public class Gerecht {
 
 	private int gerechtid;
 	private String naamgerecht;
-	private String gebruikerid;
+	private int gebruikerid;
 	private String naamingredient;
 	
 	
-	public Gerecht(int gerechtid, String naamgerecht, String gebruikerid ) {
+	public Gerecht(int gerechtid, String naamgerecht, int gebruikerid ) {
 		this.gerechtid = gerechtid;
 		this.naamgerecht = naamgerecht;
 		this.gebruikerid = gebruikerid;
@@ -17,14 +17,14 @@ public class Gerecht {
 	}
 	
 
-	public Gerecht(String naamgerecht) {
+	public Gerecht( String naamgerecht, int gebruikerid) {
+		this.gebruikerid = gebruikerid;
 		this.naamgerecht = naamgerecht;
 	}
 
 
-	public Gerecht( String gebruikerid, String naamingredient) {
-		this.gebruikerid = gebruikerid;
-		this.naamingredient = naamingredient;
+	public Gerecht(String naamgerecht) {
+		this.naamgerecht = naamgerecht;
 	}
 
 
@@ -47,12 +47,12 @@ public class Gerecht {
 		this.naamgerecht = naamgerecht;
 	}
 
-	public String getGebruikerid() {
+	public int getGebruikerid() {
 		return gebruikerid;
 	}
 
 
-	public void setGebruikerid(String gebruikerid) {
+	public void setGebruikerid(int gebruikerid) {
 		this.gebruikerid = gebruikerid;
 	}
 

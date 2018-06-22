@@ -49,21 +49,32 @@
 			<input type="button" id="boodschappenlijstaanpassen" value="boodschappenlijst aanpassen" />
 
 		</div>
+		
 		<div id="gerechtbekijken">
 			<h1>Gerecht bekijken:</h1>
-		
-		<div id="namen" class ="content">
-		<div id="ingredienten" >
-		</div>
-		</div>
-		<button class="collapsible">Eigen Gerechten</button>
-		<div class="content">
+		<div>
+		<form id="zoekgerechtform">
+		Voer de naam van het Gerecht in:<input type="input" id="invoergerechtnaam" name="invoergerechtnaam"/>
+		<input type="button" id="zoekgerecht" value="zoek Gerecht"/>
+		</form>
+
 		<form id="gerechtenform">
-			<table id="gerechtenlijst">
-				
+			<table id="gerechtennaamlijst">
+				<tr>
+					<th>Gerecht:</th>
+				</tr>
+			</table>
+		</form>
+		<form id="ingredientenform">
+			<table id="ingredientennaamlijst">
+				<tr>
+					<th>ingredient:</th>
+				</tr>
 			</table>
 		</form>
 		</div>
+		
+		
 		<button class="collapsible">Gedeeld met jouw</button>
 		<div class="content">
   
@@ -88,6 +99,8 @@
 		<p id="naamingelogd">aaa</p> 
 		<input id="uitlogknopje" type="button" value="uitloggen">
 	</div>
-	<script src="javascript/gerechtbekijken.js"></script>
+	<script src="javascript/gerechtbekijken.js">
+	</script>
+
 </body>
 </html>

@@ -25,6 +25,10 @@ public class SpetterendService {
 		return gerechtdaoimpl.findAllNaamGerecht(gebruikerid);
 	}
 	
+	public List<Gerecht> getNaamGerecht(String naamgerecht){
+		return gerechtdaoimpl.findNaamGerecht(naamgerecht);
+	}
+	
 	public List<Ingredient> getAllIngredienten(String gebruikerid){
 		return ingredientdaoimpl.findAll(gebruikerid);
 	}
@@ -34,8 +38,8 @@ public class SpetterendService {
 	}
 	
 	
-	public Gerecht saveGerecht( int gerechtid, String naam, String gebruikerid) {
-				Gerecht newgerecht = new Gerecht ( gerechtid,  naam,  gebruikerid);
+	public Gerecht saveGerecht(  String naam, int gebruikerid) {
+				Gerecht newgerecht = new Gerecht (  naam,  gebruikerid);
 				gerechtdaoimpl.save(newgerecht);
 				return newgerecht;
 	}
