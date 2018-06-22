@@ -17,6 +17,9 @@ public class SpetterendService {
 		return gerechtdaoimpl.findAllIngredientenGerecht(gebruikerid);
 	}
 	
+	public List<Gerecht> getAllIngredientenvGerecht(int gerechtid){
+		return gerechtdaoimpl.findNaamIngredient(gerechtid);
+	}
 	public List<openbaarGerecht> getAllOpenbaarGerechten(String gebruikerid){
 		return gerechtdaoimpl.findAllOpenbaarGerecht(gebruikerid);
 	}

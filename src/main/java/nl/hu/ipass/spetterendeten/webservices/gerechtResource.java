@@ -59,12 +59,27 @@ public class gerechtResource{
 		for(Gerecht g: service.getNaamGerecht(naam)) {
 			JsonObjectBuilder job = Json.createObjectBuilder();
 			job.add("naamgerecht", g.getNaamGerecht());
+			job.add("gerechtid" , g.getGerechtid());
 			jab.add(job);
 		}
 		JsonArray array = jab.build();
 		return array.toString();
 	}
 	
+	@Path("/zoekingredient/{gerechtid}")
+	@GET
+	@Produces("application/json")
+	public String zoekIngredient(@PathParam("gerechtid")int gerechtid) {
+		JsonArrayBuilder jab = Json.createArrayBuilder();
+		for(Gerecht g: service.getAllIngredientenvGerecht(gerechtid)) {
+			JsonObjectBuilder job = Json.createObjectBuilder();
+			job.add("naamingredient", g.getNaamingredient());
+			jab.add(job);
+		}
+		JsonArray array = jab.build();
+		return array.toString();
+		
+	}
 	
 	@GET
 	@Produces("application/json")
@@ -72,7 +87,7 @@ public class gerechtResource{
 		 
 		JsonArrayBuilder jab = Json.createArrayBuilder();
 		
-		for (Gerecht g : service.getAllIngredientenGerecht(gebruikerid)) {
+		for (Gerecht g : service.getAllNaamGerecht(gebruikerid)) {
 			JsonObjectBuilder job = Json.createObjectBuilder();
 			job.add("gebruikerid" , g.getGebruikerid());
 			job.add("naamingredient", g.getNaamingredient());

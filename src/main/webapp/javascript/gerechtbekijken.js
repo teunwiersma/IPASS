@@ -7,8 +7,8 @@ function initpage(){
 	knopjes();
 	laadOpenbaarGerecht();
 	zoekGerecht();
-	
-	
+	zoekingredient();
+	 laadgerechten();
 
 }
 
@@ -55,7 +55,7 @@ function knopjes(){
 }
 
 function laadgerechten(){
-	fetch("restservices/gerechten/")
+	fetch("restservices/gerechten/naamgerecht")
 	.then(response => response.json())
 	.then(function(gerechten){
 		{ console.log(gerechten); }
@@ -67,14 +67,23 @@ function laadgerechten(){
 		
 		    
 		    var naamingredientColumn = document.createElement("td");
-		    var naamingredientText = document.createTextNode(gerecht.naamingredient);
+		    var naamingredientText = document.createTextNode(gerecht.naamgerecht);
 		    naamingredientColumn.appendChild(naamingredientText);
 		    row.appendChild(naamingredientColumn);
 		    
-		   
+		    var toevoegcolumn = document.createElement("td");
+		    var toevoeg = document.createElement("button");
+		    toevoeg.innerHTML = '+';
+		    toevoegcolumn.appendChild(toevoeg);
+		    row.appendChild(toevoegcolumn);
 		    
-		    document.querySelector("#gerechtenlijst").appendChild(row);
-		}
+		    toevoeg.addEventListener("click", function(){
+				event.preventDefault();
+				document.querySelector("#invoergerechtnaam").setAttribute("value", gerecht.naamgerecht);
+		    })
+		    document.querySelector("#eigengerechten").appendChild(row);
+		    
+		 }
 	})
 }
 
@@ -114,7 +123,7 @@ function gebruikeridFunctie(){
           
 }
 
-function refreshTabel(){
+function refreshTabelgerecht(){
 	document.querySelector("#gerechtennaamlijst").innerHTML = " ";
 	
 	var row = document.createElement("tr");
@@ -129,7 +138,7 @@ function refreshTabel(){
 
 function zoekGerecht(){
 	document.querySelector("#zoekgerecht").addEventListener("click", function(){
-		refreshTabel();
+		refreshTabelgerecht();
 		var naamgerecht = document.querySelector("#invoergerechtnaam").value;
 		console.log(naamgerecht);
 		fetch("restservices/gerechten/zoekgerecht/" + naamgerecht , {method:'GET'})
@@ -137,21 +146,53 @@ function zoekGerecht(){
 		.then(function(namen){
 			for(const naam of namen){
 				var row = document.createElement("tr");
-
+				console.log(namen);
 				var naamgerechtColumn = document.createElement("td");
 				var naamgerechtText = document.createTextNode(naam.naamgerecht);
 				naamgerechtColumn.appendChild(naamgerechtText);
 				row.appendChild(naamgerechtColumn);
 				
 				document.querySelector("#gerechtennaamlijst").appendChild(row);
+				
+				sessionStorage.setItem('gerechtid', naam.gerechtid);
 				}
 		})
-		
-		
 	})
-		
+}
+
+function zoekingredient(){
+	document.querySelector("#zoekgerecht").addEventListener("click", function(){
+		var gerechtid = window.sessionStorage.getItem('gerechtid');
+		refreshTabelingredient();
+		fetch("restservices/gerechten/zoekingredient/" + gerechtid, {methdo:'GET'})
+		.then(response => response.json())
+		.then(function(ingredienten){
+			for(const ingredient of ingredienten){
+				var row = document.createElement("tr");
+				var ingredientColumn = document.createElement("td");
+				var ingredientText = document.createTextNode(ingredient.naamingredient);
+				ingredientColumn.appendChild(ingredientText);
+				row.appendChild(ingredientColumn);
+				
+				document.querySelector("#ingredientennaamlijst").appendChild(row);
+				
+				
+			}
+		})
+	});	
+}
+
+function refreshTabelingredient(){
+	document.querySelector("#ingredientennaamlijst").innerHTML = " ";
 	
+	var row = document.createElement("tr");
 	
+	var naamrow = document.createElement("th");
+	naamrow.appendChild(document.createTextNode("Ingredienten:"));
+	
+	row.appendChild(naamrow);
+	
+	document.querySelector("#ingredientennaamlijst").appendChild(row);
 }
 
 

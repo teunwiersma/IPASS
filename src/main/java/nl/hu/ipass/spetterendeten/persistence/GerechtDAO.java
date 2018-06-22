@@ -13,4 +13,5 @@ public interface GerechtDAO {
 	public List<Gerecht> findAllIngredientenGerecht(String gebruikerid);
 	public List<Gerecht> findAllNaamGerecht(String gebruikerid);
 	public List<Gerecht> findNaamGerecht(String naamgerecht);
+	public List<Gerecht> findNaamIngredient(int gerechtid);
 }

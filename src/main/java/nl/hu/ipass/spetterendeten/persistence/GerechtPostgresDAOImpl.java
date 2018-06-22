@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -68,6 +67,7 @@ public class GerechtPostgresDAOImpl extends PostgresBaseDAO implements GerechtDA
 		return results;
 	}
 	
+	
 	private List<Gerecht> selectgerechtnaam (String query){
 		List<Gerecht> results = new ArrayList<Gerecht>();
 		try (Connection con = super.getConnection()){
@@ -85,9 +85,32 @@ public class GerechtPostgresDAOImpl extends PostgresBaseDAO implements GerechtDA
 		return results;
 	}
 	
+	private List<Gerecht> selectingredientnaam(String query){
+		List<Gerecht> results = new ArrayList<Gerecht>();
+		try(Connection con = super.getConnection()){
+			PreparedStatement pstmt = con.prepareStatement(query);
+			ResultSet rs = pstmt.executeQuery();
+			while(rs.next()) {
+				String naamingredient = rs.getString("naamingredient");
+				int gerechtid = rs.getInt("gerechtid");
+				String naamgerecht = rs.getString("naamgerecht");
+				Gerecht newingredient = new Gerecht(naamingredient, gerechtid, naamgerecht);
+				results.add(newingredient);
+			}
+		}catch(SQLException sqle) {
+			sqle.printStackTrace();
+		}
+		return results;
+	}
+	
+	@Override
+	public List<Gerecht> findNaamIngredient(int gerechtid){
+		return selectingredientnaam("select i.naamingredient, ig.gerechtid, g.naamgerecht from ingredientgerecht as ig join gerecht as g on ig.gerechtid = g.gerechtid join ingredient as i on i.ingredientid = ig.ingredientid where ig.gerechtid = " + gerechtid + ";");
+	}
+	
 	@Override
 	public List<Gerecht> findNaamGerecht(String naamgerecht) {
-		return selectgerechtnaam("SELECT NAAMGERECHT FROM GERECHT WHERE NAAMGERECHT = '" + naamgerecht + "';");
+		return selectgerechtnaam("SELECT NAAMGERECHT, gerechtid FROM GERECHT WHERE NAAMGERECHT = '" + naamgerecht + "';");
 	}
 	
 	@Override
@@ -102,7 +125,6 @@ public class GerechtPostgresDAOImpl extends PostgresBaseDAO implements GerechtDA
 	
 	@Override
 	public List<Gerecht> findAllIngredientenGerecht(String gebruikerid){
-	
 		return selectGerecht("select g.gebruikerid, i.naamingredient from ingredientgerecht as ig join gerecht as g on g.gerechtid = ig.gerechtid join ingredient as i on i.ingredientid = ig.ingredientid where g.gebruikerid = " + gebruikerid + ";");
 	}
 	

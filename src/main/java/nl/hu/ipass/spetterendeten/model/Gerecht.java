@@ -17,14 +17,19 @@ public class Gerecht {
 	}
 	
 
-	public Gerecht( String naamgerecht, int gebruikerid) {
-		this.gebruikerid = gebruikerid;
+	public Gerecht( String naamgerecht, int gerechtid) {
+		this.gerechtid = gerechtid;
 		this.naamgerecht = naamgerecht;
 	}
 
 
 	public Gerecht(String naamgerecht) {
 		this.naamgerecht = naamgerecht;
+	}
+
+	public Gerecht(String naamingredient, int gerechtid, String naamgerecht) {
+		this.naamingredient = naamingredient;
+		this.gerechtid = gerechtid;
 	}
 
 
