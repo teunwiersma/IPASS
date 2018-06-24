@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nl.hu.ipass.spetterendeten.model.Gerecht;
+import nl.hu.ipass.spetterendeten.model.ingredientGerecht;
 import nl.hu.ipass.spetterendeten.model.openbaarGerecht;
 
 public class GerechtPostgresDAOImpl extends PostgresBaseDAO implements GerechtDAO {
@@ -160,6 +161,20 @@ public class GerechtPostgresDAOImpl extends PostgresBaseDAO implements GerechtDA
 		return true;
 	}
 
+	
+	@Override 
+	public boolean ingredientenGerechtOpslaan(ingredientGerecht ingredientGerecht) {
+		try(Connection con = super.getConnection()){
+			String query = "INSERT INTO INGREDIENTGERECHT(INGREDIENTID, GERECHTID) VALUES (?,?)";
+			PreparedStatement stmt = con.prepareStatement(query);
+			stmt.setInt(1, ingredientGerecht.getIngredientid());
+			stmt.setInt(2, ingredientGerecht.getGerechtid());
+			stmt.executeQuery();
+		}catch(Exception e) {
+			System.out.println(e);
+		}
+		return true;
+	}
 	
 
 }

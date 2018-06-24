@@ -103,7 +103,16 @@ function laadOpenbaarGerecht(){
 			openbaarGerechtidColumn.appendChild(openbaarGerechtidText);
 			row.appendChild(openbaarGerechtidColumn);
 			
-		    
+			 var toevoegcolumn = document.createElement("td");
+			    var toevoeg = document.createElement("button");
+			    toevoeg.innerHTML = '+';
+			    toevoegcolumn.appendChild(toevoeg);
+			    row.appendChild(toevoegcolumn);
+			    
+			    toevoeg.addEventListener("click", function(){
+					event.preventDefault();
+					document.querySelector("#invoergerechtnaam").setAttribute("value", gerecht.naamgerecht);
+			    })
 		    document.querySelector("#openbaregerechtenlijst").appendChild(row);
 		}
 	})
@@ -140,13 +149,13 @@ function zoekGerecht(){
 	document.querySelector("#zoekgerecht").addEventListener("click", function(){
 		refreshTabelgerecht();
 		var naamgerecht = document.querySelector("#invoergerechtnaam").value;
-		console.log(naamgerecht);
+		
 		fetch("restservices/gerechten/zoekgerecht/" + naamgerecht , {method:'GET'})
 		.then(response => response.json())
 		.then(function(namen){
 			for(const naam of namen){
 				var row = document.createElement("tr");
-				console.log(namen);
+				
 				var naamgerechtColumn = document.createElement("td");
 				var naamgerechtText = document.createTextNode(naam.naamgerecht);
 				naamgerechtColumn.appendChild(naamgerechtText);

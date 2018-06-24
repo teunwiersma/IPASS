@@ -41,12 +41,17 @@ public class SpetterendService {
 	}
 	
 	
-	public Gerecht saveGerecht(  String naam, int gebruikerid) {
-				Gerecht newgerecht = new Gerecht (  naam,  gebruikerid);
+	public Gerecht saveGerecht(int gebruikerid, String naam) {
+				Gerecht newgerecht = new Gerecht (gebruikerid, naam);
 				gerechtdaoimpl.save(newgerecht);
 				return newgerecht;
 	}
 	
+	public ingredientGerecht saveIngredientenGerecht(int ingredientid, int gerechtid) {
+			ingredientGerecht  newingredientGerecht  = new ingredientGerecht (ingredientid, gerechtid);
+			gerechtdaoimpl.ingredientenGerechtOpslaan(newingredientGerecht);
+			return newingredientGerecht;
+	}
 	
 	
 	public Ingredient saveingredient( String naam, int energie, int water, int eiwit, int koolhydraten, int suikers, int vet, int gebruikerid) {			

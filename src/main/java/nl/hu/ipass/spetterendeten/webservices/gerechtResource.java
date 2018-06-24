@@ -1,9 +1,15 @@
 package nl.hu.ipass.spetterendeten.webservices;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import javax.json.Json;
 import javax.json.JsonArray;
 import javax.json.JsonArrayBuilder;
+import javax.json.JsonObject;
 import javax.json.JsonObjectBuilder;
+import javax.json.JsonReader;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -12,9 +18,15 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
 
+import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
+
+import com.google.gson.*;
+
 import nl.hu.ipass.spetterendeten.model.Gerecht;
 import nl.hu.ipass.spetterendeten.model.ServiceProvider;
 import nl.hu.ipass.spetterendeten.model.SpetterendService;
+import nl.hu.ipass.spetterendeten.model.ingredientGerecht;
 import nl.hu.ipass.spetterendeten.model.openbaarGerecht;
 import nl.hu.ipass.spetterendeten.persistence.UserDao;
 import nl.hu.ipass.spetterendeten.persistence.UserPostgresDaoImpl;
@@ -45,10 +57,53 @@ public class gerechtResource{
 	public Response addGerecht(@FormParam("naam")String naam,
 							   @FormParam("gebruikerid")int gebruikerid) {
 		
-		Gerecht newgerecht = service.saveGerecht(naam, gebruikerid);
+		Gerecht newgerecht = service.saveGerecht(gebruikerid, naam);
 		System.out.println(newgerecht);
 		return Response.ok(newgerecht).build();
 	}
+	
+	@Path("/ingredienttoevoegen")
+	@POST
+	@Produces("application/json")
+	public Response addIngredienten(@FormParam("ArrayList")String ingredienten){
+		System.out.println(ingredienten);
+		List<String> array = new ArrayList<String>(Arrays.asList(ingredienten.split(",")));
+		System.out.println(array);
+//		JSONArray array = new JSONArray(ingredienten);
+//		for (int i = 0; i < array.length(); i++) {
+//			 JSONObject object = array.getJSONObject(i);
+//			 ingredientGerecht ingredientgerecht = new ingredientGerecht(object.getInt("ingredientid"), object.getInt("gerechtid");
+//		}
+//		String Json = new Gson().toJson(ingredienten);
+//		Json = Json.replace("\"", "").replace("\\", "");
+//		System.out.println(Json);
+//		
+//		com.google.gson.JsonObject object = new com.google.gson.JsonObject(ingredienten);
+//	
+//		for (int i = 0; i < Json.length(); i++) {
+			
+		   //ingredientGerecht ingredientGerecht = service.saveIngredientenGerecht(ingredientid, gerechtid);
+	//	}
+		 
+			
+		return Response.ok().build();
+	}
+//	
+//	@POST
+//	@Produces("application/json")
+//	public Response add(@FormParam("producten") String producten ){
+//		producten = producten.replace("\"", "").replace("\\", "'");
+//		 JSONArray array = new JSONArray(producten);
+//		for (int i = 0; i < array.length(); i++) {
+//			 JSONObject object = array.getJSONObject(i);
+//			 Product product = new Product(object.getInt("id"), object.getString("naam");
+//			bestelling.getProducten().add(product);
+//		}
+//		
+//		
+//		return Response.ok(bestelling).build();
+//	}
+
 	
 	@Path("/zoekgerecht/{naam}")
 	@GET

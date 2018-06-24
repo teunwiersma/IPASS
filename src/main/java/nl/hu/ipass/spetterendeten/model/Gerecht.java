@@ -22,6 +22,10 @@ public class Gerecht {
 		this.naamgerecht = naamgerecht;
 	}
 
+	public Gerecht( int gebruikerid, String naamgerecht) {
+		this.gebruikerid = gebruikerid;
+		this.naamgerecht = naamgerecht;
+	}
 
 	public Gerecht(String naamgerecht) {
 		this.naamgerecht = naamgerecht;

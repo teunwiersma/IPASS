@@ -7,7 +7,8 @@ function initpage(){
 	gebruikeridFunctie()
 	knopjes();
 	toevoegenGerecht();
-	
+	zoekGerechtID();
+	ingredientenOpslaan();
 }
 function gebruikeridFunctie(){
 
@@ -24,7 +25,7 @@ function gebruikeridFunctie(){
 }
 
 function toevoegenGerecht(){
-	  document.querySelector("#opslaan").addEventListener("click", function (){
+	  document.querySelector("#opslaangerecht").addEventListener("click", function (){
 
       var formData = new FormData(document.querySelector("#nieuwgerecht"));
       var encData = new URLSearchParams(formData.entries());
@@ -32,12 +33,28 @@ function toevoegenGerecht(){
       var fetchoptions = {method: 'POST', body:encData};
       
       fetch("restservices/gerechten/gerechttoevoegen", fetchoptions)
-      .then(response => response.json())
-      .then(function(myJson){ console.log(myJson); });
+      .then(response => response.json(), alert("Gerecht toegevoegd!"))
+      .then(function(myJson){ console.log(myJson); 
+      
+      });
             
 	})
 }
 
+
+function zoekGerechtID(){
+	document.querySelector("#opslaangerecht").addEventListener("click", function(){
+		var naamgerecht = document.querySelector("#naam").value;
+		
+		fetch("restservices/gerechten/zoekgerecht/" + naamgerecht , {method:'GET'})
+		.then(response => response.json())
+		.then(function(namen){
+			for(const naam of namen){				
+				sessionStorage.setItem('gerechtid', naam.gerechtid);
+				}
+		})
+	})
+}
 
 function knopjes(){
 
@@ -150,11 +167,40 @@ function laadingredienten(){
 					idcolumn.appendChild(idText);
 					rows.appendChild(idcolumn);
 					
+					var gerechtidcolumn = document.createElement("td");
+					var gerechtidText = document.createTextNode(window.sessionStorage.getItem('gerechtid'));
+					gerechtidcolumn.appendChild(gerechtidText);
+					rows.appendChild(gerechtidcolumn);
+					
 					document.querySelector("#gerechtlijst").appendChild(rows);
 			})
 		}
 	})
 }
+
+function ingredientenOpslaan(){
+	document.querySelector("#opslaaningredienten").addEventListener("click", function(){
+		var table = document.getElementById("gerechtlijst");
+		var tableArr =[];
+		for (var i = 1, row; row = table.rows[i]; i++){
+			tableArr.push(  { ingredientid: table.rows[i].cells[1].innerHTML,	gerechtid: table.rows[i].cells[2].innerHTML	});
+		}
+		console.log(tableArr);
+		 var tableString = JSON.stringify(tableArr);
+		 var formData = new FormData();
+		formData.append("ArrayList", tableString);
+		var encData = new URLSearchParams(formData.entries());
+		
+		var fetchoptions = {method: 'POST', body:encData};
+		
+		fetch("restservices/gerechten/ingredienttoevoegen", fetchoptions )
+	      .then(response => response.json(), alert("Ingredienten toegevoegd!"))
+	      .then(function(myJson){ console.log(myJson); 
+	      
+	      });
+	})
+}
+
 
 
 
