@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<link rel="stylesheet" type="text/css" href="ingredienttoevoegen.css">
 <link rel="stylesheet" type="text/css" href="spetterend.css">
 <link rel="stylesheet" type="text/css" href="grid.css"
 	media=" only screen and (min-width: 700px)" />
@@ -15,10 +16,10 @@
 		</div>
 		<div id="menu">
 			<input type="button" id="gerechttoevoegen" value="Gerecht toevoegen" />
-			<input type="button" id="gerechtaanpassen" value="Gerecht aanpassen" />
 			<input type="button" id="gerechtbekijken" value="Gerecht bekijken" />
 			<input type="button" id="gerechtdelen" value="Gerecht delen" />
 			<input type="button" id="ingredienttoevoegen" value="Ingrediënt toevoegen" />
+			<input type="button" id="gerechtaanpassen" value="Gerecht aanpassen" />
 			<input type="button" id="ingredientaanpassen" value="Ingrediënt aanpassen" />
 			<input type="button" id="boodschappenlijstaanmaken" value="boodschappenlijst aanmaken" />
 			<input type="button" id="boodschappenlijstaanpassen" value="boodschappenlijst aanpassen" />
@@ -28,13 +29,12 @@
 			Voer de gegevens van een nieuw ingrediënt in:
 		<form id="toevoegenform">
 			Naam: <input id="naam" type="text" name="naam"/> <br> <br>
-			 	
-			Energie:<input id="ingredient1" type="number" name="energie" /> <br> <br>
-			Water :<input id="ingredient2" type="number" name="water" /> <br> <br>
-			eiwit :<input id="ingredient3" type="number" name="eiwit" /> <br> <br>
-			koolhydraten :<input id="ingredient4" type="number" name="koolhydraten" /> <br> <br>
-			suikers :<input id="ingredient5" type="number" name="suikers" /> <br> <br>
-			vet :<input id="ingredient6" type="number" name="vet" /> <br> <br>
+			Energie:<input id="energie" type="number" name="energie" /> <br> <br>
+			Water :<input id="water" type="number" name="water" /> <br> <br>
+			eiwit :<input id="eiwit" type="number" name="eiwit" /> <br> <br>
+			koolhydraten :<input id="koolhydraten" type="number" name="koolhydraten" /> <br> <br>
+			suikers :<input id="suikers" type="number" name="suikers" /> <br> <br>
+			vet :<input id="vet" type="number" name="vet" /> <br> <br>
 			<input hidden  id="GEBRUIKERID" type="number" name="gebruikerid"/> <br> <br>	
 			<button type="button" id="opslaaningredient">Opslaan</button>
 			

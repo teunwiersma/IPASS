@@ -69,6 +69,7 @@ function laadgerechten(){
 		    
 		    var gebruikeridColumn = document.createElement("td");
 		    var gebruikeridText = document.createTextNode(gerecht.gebruikerid);
+		    gebruikeridColumn.setAttribute = ('hidden');
 		    gebruikeridColumn.appendChild(gebruikeridText);
 		    row.appendChild(gebruikeridColumn);
 		    
