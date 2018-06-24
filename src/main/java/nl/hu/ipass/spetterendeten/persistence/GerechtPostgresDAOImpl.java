@@ -94,8 +94,16 @@ public class GerechtPostgresDAOImpl extends PostgresBaseDAO implements GerechtDA
 			while(rs.next()) {
 				String naamingredient = rs.getString("naamingredient");
 				int gerechtid = rs.getInt("gerechtid");
+				int eiwit = rs.getInt("eiwit");
+				int energie = rs.getInt("energie");
+				int water = rs.getInt("water");
+				int koolhydraten = rs.getInt("koolhydraten");
+				int suikers = rs.getInt("suikers");
+				int vet = rs.getInt("vet");
+
 				String naamgerecht = rs.getString("naamgerecht");
-				Gerecht newingredient = new Gerecht(naamingredient, gerechtid, naamgerecht);
+				
+				Gerecht newingredient = new Gerecht( naamgerecht, gerechtid,   eiwit,  energie,  water,	 koolhydraten,  suikers,  vet , naamingredient);
 				results.add(newingredient);
 			}
 		}catch(SQLException sqle) {
@@ -106,7 +114,7 @@ public class GerechtPostgresDAOImpl extends PostgresBaseDAO implements GerechtDA
 	
 	@Override
 	public List<Gerecht> findNaamIngredient(int gerechtid){
-		return selectingredientnaam("select i.naamingredient, ig.gerechtid, g.naamgerecht from ingredientgerecht as ig join gerecht as g on ig.gerechtid = g.gerechtid join ingredient as i on i.ingredientid = ig.ingredientid where ig.gerechtid = " + gerechtid + ";");
+		return selectingredientnaam("select i.naamingredient, i.eiwit,  i.energie, i.water, i.koolhydraten, i.suikers, i.vet, ig.gerechtid, g.naamgerecht from ingredientgerecht as ig join gerecht as g on ig.gerechtid = g.gerechtid join ingredient as i on i.ingredientid = ig.ingredientid where ig.gerechtid = " + gerechtid + ";");
 	}
 	
 	@Override

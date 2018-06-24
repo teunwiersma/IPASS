@@ -88,21 +88,6 @@ public class gerechtResource{
 			
 		return Response.ok().build();
 	}
-//	
-//	@POST
-//	@Produces("application/json")
-//	public Response add(@FormParam("producten") String producten ){
-//		producten = producten.replace("\"", "").replace("\\", "'");
-//		 JSONArray array = new JSONArray(producten);
-//		for (int i = 0; i < array.length(); i++) {
-//			 JSONObject object = array.getJSONObject(i);
-//			 Product product = new Product(object.getInt("id"), object.getString("naam");
-//			bestelling.getProducten().add(product);
-//		}
-//		
-//		
-//		return Response.ok(bestelling).build();
-//	}
 
 	
 	@Path("/zoekgerecht/{naam}")
@@ -129,6 +114,12 @@ public class gerechtResource{
 		for(Gerecht g: service.getAllIngredientenvGerecht(gerechtid)) {
 			JsonObjectBuilder job = Json.createObjectBuilder();
 			job.add("naamingredient", g.getNaamingredient());
+			job.add("eiwit", g.getEiwit());
+			job.add("energie", g.getEnergie());
+			job.add("water", g.getWater());
+			job.add("koolhydraten", g.getKoolhydraten());
+			job.add("suikers", g.getSuikers());
+			job.add("vet", g.getVet());
 			jab.add(job);
 		}
 		JsonArray array = jab.build();

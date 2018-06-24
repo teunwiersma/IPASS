@@ -177,11 +177,44 @@ function zoekingredient(){
 		.then(response => response.json())
 		.then(function(ingredienten){
 			for(const ingredient of ingredienten){
+				
 				var row = document.createElement("tr");
+				
 				var ingredientColumn = document.createElement("td");
 				var ingredientText = document.createTextNode(ingredient.naamingredient);
 				ingredientColumn.appendChild(ingredientText);
 				row.appendChild(ingredientColumn);
+				
+				var eiwitColumn = document.createElement("td");
+				var eiwitText = document.createTextNode(ingredient.eiwit);
+				eiwitColumn.appendChild(eiwitText);
+				row.appendChild(eiwitColumn);
+				
+				var energieColumn = document.createElement("td");
+				var energieText = document.createTextNode(ingredient.energie);
+				energieColumn.appendChild(energieText);
+				row.appendChild(energieColumn)
+				
+				var waterColumn = document.createElement("td");
+				var waterText = document.createTextNode(ingredient.water);
+				waterColumn.appendChild(waterText);
+				row.appendChild(waterColumn)
+				
+				var koolhydratenColumn = document.createElement("td");
+				var koolhydratenText = document.createTextNode(ingredient.koolhydraten);
+				koolhydratenColumn.appendChild(koolhydratenText);
+				row.appendChild(koolhydratenColumn)
+				
+				var suikersColumn = document.createElement("td");
+				var suikersText = document.createTextNode(ingredient.eiwit);
+				suikersColumn.appendChild(suikersText);
+				row.appendChild(suikersColumn)
+				
+				var vetColumn = document.createElement("td");
+				var vetText = document.createTextNode(ingredient.vet);
+				vetColumn.appendChild(vetText);
+				row.appendChild(vetColumn)
+				
 				
 				document.querySelector("#ingredientennaamlijst").appendChild(row);
 				
@@ -198,8 +231,31 @@ function refreshTabelingredient(){
 	
 	var naamrow = document.createElement("th");
 	naamrow.appendChild(document.createTextNode("Ingredienten:"));
-	
 	row.appendChild(naamrow);
+	
+	var eiwitrow = document.createElement("th");
+	eiwitrow.appendChild(document.createTextNode("eiwit"));
+	row.appendChild(eiwitrow);
+	
+	var energierow = document.createElement("th");
+	energierow.appendChild(document.createTextNode("energie"));
+	row.appendChild(energierow);
+	
+	var waterrow = document.createElement("th");
+	waterrow.appendChild(document.createTextNode("water"));
+	row.appendChild(waterrow);
+	
+	var koolhydratenrow = document.createElement("th");
+	koolhydratenrow.appendChild(document.createTextNode("koolhydraten"));
+	row.appendChild(koolhydratenrow);
+	
+	var suikersrow = document.createElement("th");
+	suikersrow.appendChild(document.createTextNode("suikers"));
+	row.appendChild(suikersrow);
+	
+	var vetrow = document.createElement("th");
+	vetrow.appendChild(document.createTextNode("vet"));
+	row.appendChild(vetrow);
 	
 	document.querySelector("#ingredientennaamlijst").appendChild(row);
 }
